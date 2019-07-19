@@ -1,33 +1,502 @@
-.App {
-  text-align: center;
+body{
+  margin: 0;
+  padding: 0; 
+  height: 100%;
+
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+.container
+{
+ width: 320px;
+ margin: 0 auto;
+ border: 1px solid black;
+ position: relative;
+ height: auto;
+ 
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.heading
+{
+  padding-left:5px ;
 }
 
-.App-link {
-  color: #61dafb;
+.font
+{
+  padding-left:5px ;
+  font-size:14px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+@media screen and (max-width:500px){
+ .container{
+     width:100%;
+     height: auto;
+ 
+ }
+ 
+}
+
+.header
+{
+ 
+ font-size: 20px;
+ width:100%;
+ margin:0;
+ padding-right:10px;
+ text-align: center;
+ padding-top: 10px;
+ 
+}
+.tip-bar
+{
+ position: absolute;
+ right: 10px;
+ top:3px;
+ width: 54px;
+ padding-top: 35px;
+}
+
+.tip-bar p{
+ display: inline-block;
+ font-size: 16px;
+ margin-top: 5px;
+}
+
+
+
+.bulb
+{
+ padding:5px;
+ width: 15px; 
+ float: left; 
+}
+
+/*.hr 
+{
+ 
+ width: 100%;
+} */
+.progress-bar
+{
+ width: 98%;
+ height: 2px;
+ background-color: lawngreen;
+ margin: 0 auto;
+}
+.improvement
+{
+ width: 30%;
+ height:2px;
+ background-color: green;
+}
+/*hr.line
+{
+ 
+ border: 1;
+ box-shadow: inset 0 9px 9px -3px rgba(11, 184, 132, 0.8);
+ -webkit-border-radius: 5px;
+ -moz-border-radius: 5px;
+ -ms-border-radius: 5px;
+ -o-border-radius: 5px;
+ border-radius: 5px;
+ padding: 1px;
+ 
+} */
+ 
+.detail-box 
+{
+ margin: 10px;
+ padding-block:0px;
+ border: 2px solid black;
+ margin-bottom: 60px;
+ 
+}
+
+.arrow
+{
+ padding:5px;
+ width: 20px;
+}
+
+.review-button
+{
+ display: none;  
+}
+
+.like-buttons{
+ display: none;
+}
+
+.dislike-buttons{
+ display: none;
+}
+
+.like-buttons button
+{
+ background:  white; 
+ border-radius: 8px;
+ padding: 5px 15px;
+ text-align: center;
+ margin-bottom: 10px;
+ margin-left: 3px;
+}
+
+.dislike-buttons button
+{
+ background:  white; 
+ border-radius: 8px;
+ padding: 5px 15px;
+ text-align: center;
+ margin-bottom: 10px;
+ margin-left: 3px;
+}
+.like
+{
+display:none;
+}
+.dislike
+{
+display:none;
+}
+.view{
+display:none;
+}
+
+.submit-btn1
+{
+     
+     background: #CCC;
+     color: #FFF;
+     border-radius: initial;
+     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+     font-family: Arial, sans-serif;
+     line-height: 2.5em;
+      padding: 0 3em;
+      text-decoration: none;
+      width: 100%;
+}
+
+.review-box
+{
+ width: 100px;
+ margin: auto;
+ padding: 0;
+ overflow: auto;
+ margin-bottom: 20px;
+}
+
+span
+{
+padding-left: 25px;
+padding-bottom: 20px;
+}
+
+.circle
+{
+ padding-bottom: 20px;
+ width: 40px;
+ height: 20px;
+ border-radius: 50%;
+ border: 1px solid black;
+ float: left;
+ 
+}
+
+.firstcircle{
+ margin-right:15px;
+}
+
+.active{
+ background-color: gray !important;
+ 
+}
+.inactive{
+ background-color:white !important;
+ 
+}
+
+.btnactive{
+ background-color:green !important;
+ 
+}
+.btninactive{
+ background-color:grey!important;
+ 
+}
+
+.thumb
+{
+
+ padding:5px;
+ width: 30px;
+}
+.overlay-box{
+ position: absolute;
+ background-color: rgba(0,0,0,0.5);
+ width: 100%;
+ bottom: 0;
+ height: 100%;
+ display: none;
+ z-index: 1;
+}
+
+.description
+{
+ font-size: 15px;
+ position: absolute;
+ bottom: 0;
+ width: 100%;
+ background: #fff;
+ padding: 10px;
+ box-sizing: border-box;
+ display:none;
+ z-index: 2;
+ 
+}
+
+.description-active
+{
+ display:block;
+}
+
+.hr
+{
+width:95%;
+margin: 0 auto;
+
+}
+.giftwrapper
+{
+ width: 95%;
+ margin: 0 auto;
+ border: 1px solid black;
+ position: relative;
+ margin-bottom: 10px ; 
+ 
+}
+
+
+
+
+.addproduct
+{
+ 
+ width: 40px;
+ float:left; 
+ height: 50px;
+ 
+}
+
+.giftbox1
+{
+ width: 50%;
+ margin: 0 auto;
+ 
+ position: relative;
+ 
+ display: inline-block;
+}
+.giftbox2
+{
+ width: 50%;
+ margin: 0 auto;
+ 
+ position: relative;
+
+ display: inline-block;
+}
+
+
+.textsize
+{
+ font-size: 14px;
+ margin-top: 5px;
+ padding-left: 8px;
+ display:inline-block;
+}
+
+.bottom
+{
+margin-bottom: 40px;
+}
+
+.gift-button button
+{
+ background:  white; 
+ 
+ padding: 5px 15px;
+ text-align: center;
+ margin-bottom: 10px;
+ margin-left: 5px;
+
+}
+
+.giftimage
+{
+position:absolute;
+font-size: 14px;
+margin-right: 5px;
+right: 8px;
+bottom: 2px;
+
+}
+
+.feedback
+{
+ width: 95%;
+ margin: 0 auto;
+ text-align: center;
+ font-size: 14px;
+ position: relative;
+ margin-bottom: 50px ; 
+ display: none;
+}
+.feedback-container
+{
+ width: 320px;
+ margin: 0 auto;
+ border: 1px solid black;
+ position: relative;
+ height:450px; 
+ display:none;
+}
+.feedback-header
+{
+ height: 40px;
+ width:100%;
+ margin:0;
+ padding-right:10px;
+ text-align: center;
+}
+
+.cross
+{
+ padding:10px;
+ width: 25px;
+ float: left;
+}
+/*.feedback-box 
+{
+ margin: 10px;
+ padding-block:0px;
+ border: 1px solid black;
+ margin-bottom: 50px;
+ height: 150px;
+ 
+} */
+.feedback-para
+{
+padding:10px;
+
+font-size: 15px;
+color: gray;
+margin: 10px;
+padding-block:0px;
+border: 1px solid black;
+margin-bottom: 50px;
+height: 150px;
+width:93%;
+}
+
+.add{
+ width:40px;
+ height: 40px;
+ background-size: 30px;
+ float: right;
+ background-position-y: 5px;
+ background-repeat: no-repeat;
+}
+.addclass{
+ width:40px;
+ height: 40px;
+ background-size: 30px;
+ float: right;
+ background-position-y: 5px;
+ background-repeat: no-repeat;
+}
+.gift-view1
+{
+display:none;
+}
+
+.gift-view2
+{
+display:none;
+}
+
+.check{
+ width:40px;
+ height: 40px;
+ background-size: 30px;
+ float: right;
+ background-position-y: 5px;
+ background-repeat: no-repeat;
+ display: none;
+}
+
+
+.feedback-para:focus{
+ border:1px solid red;
+}
+
+.done-btn
+{
+ background-color: rgb(38, 201, 38);
+ color: #FFF;
+ border-radius: initial;
+ box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+ font-family: Arial, sans-serif;
+ line-height: 2.5em;
+ padding: 0 3em;
+ text-decoration: none;
+ width: 100%;
+
+
+}
+.edit-image
+{
+ font-size: 15px;
+ position: absolute;
+ bottom: 0;
+ width: 100%;
+ background: #fff;
+ padding: 10px;
+ box-sizing: border-box;
+ display: none;
+ z-index: 2;
+ 
+}
+.text-right
+{
+float: right;
+}
+.text-left
+{
+float: left;
+}
+
+
+.edit-box
+{
+ 
+ padding-block:0px;
+ border: 1px solid black;
+ margin-bottom: 25px; 
+ height: 150px;
+ clear: both;
+}
+
+.pen
+{
+ top:30px;
+ padding:5px;
+ width: 30px;
+ float: right;
+}
+.showdiv
+{
+ display: none;
+}
+.closediv
+{
+ display: initial;
 }
