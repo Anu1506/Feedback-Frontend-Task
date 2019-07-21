@@ -8,15 +8,42 @@ import thumb2 from'./image/thumb2.png';
 
   
 class App extends Component{
- 
+    constructor(props){
+        super(props)
+this.state={
+    toggle:false,
+    toggle1:false,
+    toggle2:false,
+}
+}
+    _handleOnClick=() =>{
+        this.setState({toggle:!this.state.toggle,toggle1:false
+        });
+
+    
+    }
+
+    abc=()=>{
+        this.setState({toggle1:!this.state.toggle1,toggle:false});
+
+    }
+
+    tip=()=>{
+        this.setState({toggle2:!this.state.toggle2});
+
+    }
+    
+  
+    
   render(){
+
     return(
       <div className="container">
-      <div className="overlay-box"></div>
+      
       <div className="header">
           <h4>Header</h4>
            
-          <div className="tip-bar"> <img className="bulb" src={bulb} alt="bulb"></img>
+          <div className="tip-bar"> <img className="bulb" src={bulb} alt="bulb"onClick={this.tip}></img>
               <p>Tip</p>
           </div>
       </div>
@@ -45,14 +72,52 @@ class App extends Component{
 
 
               <div className="review-box">
-                  <div className="circle firstcircle">
+                  <div className="circle firstcircle" onClick={this._handleOnClick}>
                       <img className="thumb" src={thumb1}></img>  
                   </div>
 
-                  <div className="circle">
+                  <div className="circle" onClick={this.abc}>
                       <img className="thumb" src={thumb2}></img>
                   </div>
-              </div>
+              </div>    
+                  {
+                      this.state.toggle ?  
+                  
+                 <div className="dislike-buttons" >
+                    < button className="btn inactive">Unprofessional</button>
+                    <button className="btn inactive">Rider Communication</button>
+                    <button className="btn inactive" className="margin">Behaviour</button>
+                </div>
+                : null
+                  }
+                
+                {
+                      this.state.toggle1?  
+                
+                <div className="like-buttons">
+                    <button className="btn inactive">Good</button>
+                    <button className="btn inactive">Best</button>
+                    <button className="btn inactive" className="margin">Average</button>
+                </div>
+                  : null
+                }
+                {
+                      this.state.toggle2? 
+                       
+                <div className="overlay-box"></div>
+                : null
+                }
+                {
+                    this.state.toggle3? 
+                <div class="description">
+                <p>Help others make purchase decision-<br/><br/>Write about your Service Experience:<br/>Explain what you liked or disliked about the<br/>services,did it meet your excpetence,was the <br/>customer care helpful
+                enough..<br/><br/>Write about your Product Experience<br/>How good was the product,was therecipient<br/>happy with the quality?</p>
+               </div>
+    
+    
+                : null
+            }
+          
 
           </div>
 
@@ -60,10 +125,11 @@ class App extends Component{
   <button className="submit-btn1">Submit & Continue</button>
   </div>
 
-    )
+);
     
-  }
+ }
 }
+
 
 
 

@@ -122,13 +122,8 @@ body{
  display: none;  
 }
 
-.like-buttons{
- display: none;
-}
 
-.dislike-buttons{
- display: none;
-}
+
 
 .like-buttons button
 {
@@ -138,6 +133,7 @@ body{
  text-align: center;
  margin-bottom: 10px;
  margin-left: 3px;
+ 
 }
 
 .dislike-buttons button
@@ -148,6 +144,7 @@ body{
  text-align: center;
  margin-bottom: 10px;
  margin-left: 3px;
+ 
 }
 .like
 {
@@ -189,6 +186,10 @@ span
 padding-left: 25px;
 padding-bottom: 20px;
 }
+.margin
+{
+  margin-bottom: 40px;
+}
 
 .circle
 {
@@ -197,7 +198,7 @@ padding-bottom: 20px;
  height: 20px;
  border-radius: 50%;
  border: 1px solid black;
- float: left;
+ display:inline-block;
  
 }
 
