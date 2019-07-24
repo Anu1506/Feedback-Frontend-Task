@@ -146,17 +146,7 @@ body{
  margin-left: 3px;
  
 }
-.like
-{
-display:none;
-}
-.dislike
-{
-display:none;
-}
-.view{
-display:none;
-}
+
 
 .submit-btn1
 {
@@ -236,7 +226,7 @@ padding-bottom: 20px;
  width: 100%;
  bottom: 0;
  height: 100%;
- display: none;
+ left: 0;
  z-index: 1;
 }
 
@@ -249,7 +239,7 @@ padding-bottom: 20px;
  background: #fff;
  padding: 10px;
  box-sizing: border-box;
- display:none;
+ left: 0;
  z-index: 2;
  
 }
@@ -349,7 +339,7 @@ bottom: 2px;
  font-size: 14px;
  position: relative;
  margin-bottom: 50px ; 
- display: none;
+ 
 }
 .feedback-container
 {
@@ -358,7 +348,7 @@ bottom: 2px;
  border: 1px solid black;
  position: relative;
  height:450px; 
- display:none;
+ 
 }
 .feedback-header
 {
@@ -395,7 +385,7 @@ padding-block:0px;
 border: 1px solid black;
 margin-bottom: 50px;
 height: 150px;
-width:93%;
+width:87%;
 }
 
 .add{
@@ -414,15 +404,8 @@ width:93%;
  background-position-y: 5px;
  background-repeat: no-repeat;
 }
-.gift-view1
-{
-display:none;
-}
 
-.gift-view2
-{
-display:none;
-}
+
 
 .check{
  width:40px;
