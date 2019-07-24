@@ -21,15 +21,46 @@ class App extends Component {
 
             toggle: false,
             selectedOption: '',
+            error: null,
+            isLoaded: false,
+            items: []
 
         }
     }
+
+   
     _handleOnClick = (e) => {
         const elementId = e.target.getAttribute('id');
+        console.log('in')
         this.setState({
             activeButton: elementId,
             bgColor: 'gray',
-            selectedOption: elementId
+            selectedOption: elementId,
+            componentDidMount(){
+            fetch("http://localhost:5000/api/order-comments-list/2")
+              .then(
+                  
+                  res => res.json()
+              )
+              .then(
+
+                (result) => {
+                    console.log('like')
+                  this.setState({
+                    isLoaded: true,
+                    items: result.items
+                  });
+                },
+                
+                (error) => {
+                    console.log('errr')
+                  this.setState({
+                    isLoaded: true,
+                    error
+                  });
+                }
+              )
+          }
         });
 
 
@@ -58,19 +89,9 @@ class App extends Component {
         var optionButtonClasses = "circle";
         console.log(this.state.activeButton);
 
-
-        // var OnSubmitTest = React.createClass({
-
-        //     submit: function (e) {
-        //         e.preventDefault();
-        //         alert('it works!');
-        //     }
-        // });
-
-
         return (
 
-            <div className="container">
+            <div className="container" >
 
                 <div className="header">
                     <h4>Header</h4>
@@ -106,7 +127,7 @@ class App extends Component {
 
 
                         <div className="review-box">
-                            <div className={this._isButtonActive("dislike") ? optionButtonClasses + " active" : optionButtonClasses} onClick={this._handleOnClick} id="dislike"
+                            <div className={this._isButtonActive("dislike") ? optionButtonClasses + " active" : optionButtonClasses} onClick={this._handleOnClick} id="dislike123"
                   /* style={this.state.activeButton == "dislike" ? {backgroundColor:this.state.bgColor}: {}}>*/>
                                 <img className="thumb" src={thumb1} id="dislike" />
 
@@ -144,7 +165,7 @@ class App extends Component {
                         {
                             this.state.toggle ?
 
-                                <div className="overlay-box" onClick={() => this.setState({toggle: false})}>
+                                <div className="overlay-box" onClick={() => this.setState({ toggle: false })}>
 
                                 </div>
                                 : null
@@ -167,11 +188,12 @@ class App extends Component {
 
                 </div>
                 <button className={this.state.selectedOption.length > 0 ? "submit-btn1 btnactive" : "submit-btn1"} onClick={this._handleSubmit.bind(this)} id="submit">Submit & Continue</button>
-            </div >
+            </div>
 
         );
 
     }
+
 }
 
 
