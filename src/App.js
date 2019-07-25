@@ -1,3 +1,4 @@
+import qs from 'querystring';
 import React, { Component } from 'react';
 import './App.css';
 import { createBrowserHistory } from 'history';
@@ -5,7 +6,7 @@ import bulb from './image/bulb.png';
 import thumb1 from './image/thumb1.png';
 import thumb2 from './image/thumb2.png';
 import Secondpage from "./Secondpage";
-
+import axios from 'axios';
 
 
 function Index() {
@@ -20,11 +21,14 @@ class App extends Component {
         this.state = {
 
             toggle: false,
+            toggle1:false,
             selectedOption: '',
             error: null,
             isLoaded: false,
             items: [],
-            likes:'',
+            dislike:1,
+            like:2,
+            comment_id:''
             
         }
     }
@@ -70,6 +74,11 @@ class App extends Component {
         this.setState({ toggle: !this.state.toggle });
 
     }
+    btn = (id) => {
+        this.setState({ toggle1: !this.state.toggle1,bgcolor:'gray' ,comment_id:id});
+
+    }
+
 
 
 
@@ -83,33 +92,36 @@ class App extends Component {
 
     _handleSubmit() {
         console.log(document.url)
-        const str = 'http://localhost:5000/api/order-comments-list/2000';
+        const str = 'http://localhost:5000/api/order-comments-list/2';
         const res = str.split('/');
         console.log(res[res.length-1]);
-        if(this.state.activeButton == 'like')
+        if(this.state.activeButton == '0')
         {
-            console.log(this.state.activeButton)
+            console.log(this.state.dislike)
+        }    
+            else{
+            console.log(this.state.like)
 
         }
 
-        fetch('http://localhost:5000/api/save-order-feedback', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
+        var headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'JWT fefege...' 
+        }
 
-            body: JSON.stringify({
-                order_id: res[res.length-1],
-                comment_id: this.state.items,
+
+        axios.post(
+            'http://localhost:5000/api/save-order-feedback',
+            qs.stringify({
+                order_id: '2',
+                comment_id: this.state.comment_id,
                 user_id: '0',
                 feedback_by: '2',
                 rating: '0',
-                status: 'likes',
-                 
+                status: this.state.activeButton
+            }), {headers: headers})
 
-            })
-        })
+        
                 .then(response => {
                     console.log(this.props.history.push('/Secondpage'))
                 })
@@ -188,10 +200,9 @@ class App extends Component {
 
                                    <div className= "dislike-buttons">
                                     {this.state.items.map((item) => (
-                                        
-                                         
-                                        < button >{item.name}</button>
                                        
+                                        < button onClick={()=>this.btn(item.id)}>{item.name}</button>
+                                      
                                     
                                     ))
                                     }
