@@ -23,48 +23,48 @@ class App extends Component {
             selectedOption: '',
             error: null,
             isLoaded: false,
-            items: []
-
+            items: [],
+            likes:'',
+            
         }
     }
 
-   
+    
     _handleOnClick = (e) => {
         const elementId = e.target.getAttribute('id');
-        console.log('in')
-        this.setState({
-            activeButton: elementId,
-            bgColor: 'gray',
-            selectedOption: elementId,
-            componentDidMount(){
-            fetch("http://localhost:5000/api/order-comments-list/2")
-              .then(
-                  
-                  res => res.json()
-              )
-              .then(
+        fetch("http://localhost:5000/api/order-comments-list/2")
+            .then(
+
+                res => res.json()
+            )
+            .then(
 
                 (result) => {
+                    console.log(JSON.stringify(result, "res"))
                     console.log('like')
-                  this.setState({
-                    isLoaded: true,
-                    items: result.items
-                  });
+                    this.setState({
+                        activeButton: elementId,
+                        bgColor: 'gray',
+                        selectedOption: elementId,
+                        isLoaded: true,
+                        items: result.data
+                    });
                 },
-                
+
                 (error) => {
                     console.log('errr')
-                  this.setState({
-                    isLoaded: true,
-                    error
-                  });
+                    this.setState({
+                        isLoaded: true,
+                        error
+                    });
                 }
-              )
-          }
-        });
+            )
+
+
 
 
     }
+   
 
     tip = () => {
         this.setState({ toggle: !this.state.toggle });
@@ -78,18 +78,61 @@ class App extends Component {
         return this.state.activeButton === buttonId;
     }
 
+   
+
 
     _handleSubmit() {
-        this.props.history.push('/Secondpage')
-        console.log("Submitted");
+        console.log(document.url)
+        const str = 'http://localhost:5000/api/order-comments-list/2000';
+        const res = str.split('/');
+        console.log(res[res.length-1]);
+        if(this.state.activeButton == 'like')
+        {
+            console.log(this.state.activeButton)
+
+        }
+
+        fetch('http://localhost:5000/api/save-order-feedback', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+
+            body: JSON.stringify({
+                order_id: res[res.length-1],
+                comment_id: this.state.items,
+                user_id: '0',
+                feedback_by: '2',
+                rating: '0',
+                status: 'likes',
+                 
+
+            })
+        })
+                .then(response => {
+                    console.log(this.props.history.push('/Secondpage'))
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        
     }
+    // Collect data from state
+    // prepare data according to api
+    // Make an api call on http://localhost:5000/api/save-order-feedback
+    // On success this.props.history.push('/Secondpage') 
+    // On failure show the message 
 
 
     render() {
+        console.log(this.props.location.search)
         var optionButtonClasses = "circle";
         console.log(this.state.activeButton);
-
+       
         return (
+
+
 
             <div className="container" >
 
@@ -142,10 +185,16 @@ class App extends Component {
                         {
                             this._isButtonActive("dislike") ?
 
-                                <div className="dislike-buttons" id="dis-btn">
-                                    < button>Unprofessional</button>
-                                    <button>Rider Communication</button>
-                                    <button className="margin">Behaviour</button>
+
+                                   <div className= "dislike-buttons">
+                                    {this.state.items.map((item) => (
+                                        
+                                         
+                                        < button >{item.name}</button>
+                                       
+                                    
+                                    ))
+                                    }
                                 </div>
                                 : null
                         }
