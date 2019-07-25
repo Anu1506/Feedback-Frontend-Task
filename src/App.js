@@ -103,25 +103,19 @@ class App extends Component {
             console.log(this.state.like)
 
         }
-
-        var headers = {
-            'Content-Type': 'application/json',
-            'Authorization': 'JWT fefege...' 
-        }
-
-
-        axios.post(
-            'http://localhost:5000/api/save-order-feedback',
-            qs.stringify({
+        axios({
+            method: 'post',
+            url: 'http://localhost:5000/api/save-order-feedback',
+            data: {
                 order_id: '2',
-                comment_id: this.state.comment_id,
+                comment_id: 1,
                 user_id: '0',
                 feedback_by: '2',
                 rating: '0',
-                status: this.state.activeButton
-            }), {headers: headers})
-
-        
+                status: this.state.dislike,
+                feedback: ""
+            }
+        })        
                 .then(response => {
                     console.log(this.props.history.push('/Secondpage'))
                 })
