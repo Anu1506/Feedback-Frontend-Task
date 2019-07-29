@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
-import './App.css';
+import '../asset/Style.css';
 
 class Giftbutton extends Component {
  
     render() {
         return (
             <div className="gift-view1">
-            <div className="hr">
-                <hr />
-            </div>
-            <p className="font">Where we can improve?</p>
+        
+            <p className="font-btn">Where we can improve?</p>
 
 
             <div className="gift-button">
@@ -18,12 +16,10 @@ class Giftbutton extends Component {
                 <button >Taste</button>
 
             </div>
-
+            <div class="hrline"></div> 
            
 
-            <div className="giftimage">
-                <a href="#">Upload image</a>
-            </div>
+            
             
         </div>
         );

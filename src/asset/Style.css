@@ -7,23 +7,71 @@ body{
 
 .container
 {
- width: 320px;
+ width: 360px;
  margin: 0 auto;
- border: 1px solid black;
+ border: 1px solid grey;
  position: relative;
  height: auto;
  
 }
 
+
+
+
+.logo
+{
+  max-width: 45%;
+}
+
 .heading
 {
   padding-left:5px ;
+  text-align: left;
+  margin-top: 40px;
+  font-family: Lato;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: bold;
+  font-stretch: normal;
+
+  line-height: normal;
+
+  letter-spacing: normal;
+
+  color: #1c2120
+  
 }
 
 .font
 {
+  margin-top: 40px;
   padding-left:5px ;
-  font-size:14px;
+opacity: 0.7;
+font-family: Lato;
+font-size: 16px;
+font-weight: normal;
+font-style: normal;
+font-stretch: normal;
+line-height: 1.25;
+letter-spacing: normal;
+text-align: center;
+color: #1c2120;
+}
+
+.font-btn
+{
+margin-top: 20px;
+padding-left:15px ;
+
+font-family: Lato;
+font-size: 16px;
+font-weight: normal;
+font-style: normal;
+font-stretch: normal;
+line-height: 1.25;
+letter-spacing: normal;
+text-align: left;
+color: #1c2120;
 }
 
 @media screen and (max-width:500px){
@@ -32,19 +80,33 @@ body{
      height: auto;
  
  }
- 
 }
+ 
+
+ 
+ .ml{
+   margin-left: 10px;
+ }
+
 
 .header
 {
- 
- font-size: 20px;
- width:100%;
- margin:0;
- padding-right:10px;
+ height: 100px;
  text-align: center;
- padding-top: 10px;
+ margin-top: -110px;
+ padding-block:0px;
+ margin-bottom: 60px;
+ padding-left: 10px;
  
+ 
+}
+.Group-img {
+
+  width: 336px;
+  height: 144px;
+  margin-top: 0px;
+  margin-left: 23px
+
 }
 .tip-bar
 {
@@ -52,8 +114,12 @@ body{
  right: 10px;
  top:3px;
  width: 54px;
- padding-top: 35px;
+ padding-top: 45px;
 }
+
+
+
+
 
 .tip-bar p{
  display: inline-block;
@@ -70,24 +136,40 @@ body{
  float: left; 
 }
 
-/*.hr 
-{
- 
- width: 100%;
-} */
 .progress-bar
 {
- width: 98%;
- height: 2px;
- background-color: lawngreen;
- margin: 0 auto;
+    width: 100%;
+    height: 15px;
+    background-color: #edf1f7;
+    margin-top: 100px;
+
 }
-.improvement
+
+.line
 {
- width: 30%;
- height:2px;
- background-color: green;
+    width: 100%;
+    height: 2px;
+    background-color: #edf1f7;
+    margin: 0 auto;
+    margin-top: 50px;
+    margin-bottom: 20px;
 }
+
+.hrline
+{
+    width: 95%;
+    height: 1px;
+    background-color: #edf1f7;
+    margin: 0 auto;
+    margin-top: 40px;
+  
+}
+  
+  
+  
+
+
+
 /*hr.line
 {
  
@@ -104,22 +186,30 @@ body{
  
 .detail-box 
 {
- margin: 10px;
+
  padding-block:0px;
- border: 2px solid black;
- margin-bottom: 60px;
+ text-align: center;
+ margin-bottom: 18px;
+ 
+ 
  
 }
 
 .arrow
 {
- padding:5px;
- width: 20px;
+  width: 24px;
+  float: left;
+  height: 24px;
+  object-fit: contain;
+  margin-top: 20px;
 }
 
 .review-button
 {
  display: none;  
+}
+.first{
+  margin-right:30px;
 }
 
 
@@ -139,11 +229,12 @@ body{
 .dislike-buttons button
 {
  background:  white; 
- border-radius: 8px;
- padding: 5px 15px;
+ border-radius: 5px;
+ padding: 10px;
  text-align: center;
- margin-bottom: 10px;
- margin-left: 3px;
+ color:gray;
+ 
+ float: left;
  
 }
 
@@ -151,24 +242,31 @@ body{
 .submit-btn1
 {
      
-     background: #CCC;
+     background: rgb(72, 177, 23);
      color: #FFF;
-     border-radius: initial;
-     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+     border-radius: 5px;
+     box-shadow: inset 0 1px 0 rgba(233, 240, 233, 0.2);
      font-family: Arial, sans-serif;
      line-height: 2.5em;
-      padding: 0 3em;
+      padding: 5px;
       text-decoration: none;
-      width: 100%;
+      width: 70%;
+      margin-left: 55px;
+      margin-bottom: 18px;
+      margin-top: 18px;
+      height:50px;
+      font-size: 18px;
 }
 
 .review-box
 {
- width: 100px;
- margin: auto;
- padding: 0;
+
+ 
+ margin-left: 40px;
  overflow: auto;
- margin-bottom: 20px;
+
+ display: inline;
+ 
 }
 
 span
@@ -184,20 +282,18 @@ padding-bottom: 20px;
 .circle
 {
  padding-bottom: 20px;
- width: 40px;
+ width: 69px;
  height: 20px;
- border-radius: 50%;
- border: 1px solid black;
+ border-radius: 6px;
+ border: 1px solid rgb(175, 172, 172);
  display:inline-block;
- 
+
 }
 
-.firstcircle{
- margin-right:15px;
-}
+
 
 .active{
- background-color: gray !important;
+ background-color: green !important;
  
 }
 .inactive{
@@ -259,9 +355,10 @@ margin: 0 auto;
 {
  width: 95%;
  margin: 0 auto;
- border: 1px solid black;
+
  position: relative;
- margin-bottom: 10px ; 
+ padding-top:10px;
+
  
 }
 
@@ -271,10 +368,12 @@ margin: 0 auto;
 .addproduct
 {
  
- width: 40px;
+ border-color: #edf1f7;
  float:left; 
- height: 50px;
- 
+ width: 60px;
+ height: 60px;
+ border-style: double;
+ border-radius:6px;
 }
 
 .giftbox1
@@ -299,10 +398,32 @@ margin: 0 auto;
 
 .textsize
 {
- font-size: 14px;
- margin-top: 5px;
- padding-left: 8px;
+ 
+
+ padding-left: 15px;
  display:inline-block;
+
+ font-family: Lato;
+ font-size: 16px;
+ font-weight: bold;
+ letter-spacing: normal;
+ color: #1c2120;
+ display: inline;
+}
+
+.delivered{
+
+font-family: Lato;
+font-size: 12px;
+font-weight: normal;
+font-style: italic;
+letter-spacing: normal;
+color: #1c2120;
+
+padding-left: 80px;
+}
+.left{
+  margin-left: -25px;
 }
 
 .bottom
@@ -330,6 +451,10 @@ right: 8px;
 bottom: 2px;
 
 }
+.link-col
+{
+color: green;
+}
 
 .feedback
 {
@@ -339,6 +464,7 @@ bottom: 2px;
  font-size: 14px;
  position: relative;
  margin-bottom: 50px ; 
+ color: green;
  
 }
 .feedback-container
@@ -389,12 +515,13 @@ width:87%;
 }
 
 .add{
- width:40px;
- height: 40px;
- background-size: 30px;
- float: right;
+ 
+ position: absolute;
  background-position-y: 5px;
- background-repeat: no-repeat;
+ padding:5px;
+ width: 12px; 
+ right: 10px;
+ top:10px;
 }
 .addclass{
  width:40px;
@@ -403,6 +530,10 @@ width:87%;
  float: right;
  background-position-y: 5px;
  background-repeat: no-repeat;
+}
+
+.top{
+  padding-bottom: 20px;
 }
 
 
@@ -476,11 +607,4 @@ float: left;
  width: 30px;
  float: right;
 }
-.showdiv
-{
- display: none;
-}
-.closediv
-{
- display: initial;
-}
+

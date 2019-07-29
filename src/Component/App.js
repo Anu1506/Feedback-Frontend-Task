@@ -1,14 +1,14 @@
 import qs from 'querystring';
 import React, { Component } from 'react';
-import './App.css';
+import '../asset/Style.css';
 import { createBrowserHistory } from 'history';
-import bulb from './image/bulb.png';
-import thumb1 from './image/thumb1.png';
-import thumb2 from './image/thumb2.png';
-import Secondpage from "./Secondpage";
+import logo from '../asset/img/logo.png';
+import bulb from '../asset/img/bulb.png';
+import backgrd from '../asset/img/backgrd.png';
+import thumb1 from '../asset/img/thumb1.png';
+import thumb2 from '../asset/img/thumb2.png';
+import Secondpage from '../Component/Secondpage';
 import axios from 'axios';
-
-
 function Index() {
     return <h2>Home</h2>;
 }
@@ -28,9 +28,15 @@ class App extends Component {
             items: [],
             dislike:1,
             like:2,
-            comment_id:''
+            comment_id:'',
             
-        }
+            
+        
+  }
+
+      
+  
+
     }
 
     
@@ -48,7 +54,7 @@ class App extends Component {
                     console.log('like')
                     this.setState({
                         activeButton: elementId,
-                        bgColor: 'gray',
+                        backgroundColor: 'green',
                         selectedOption: elementId,
                         isLoaded: true,
                         items: result.data
@@ -124,66 +130,53 @@ class App extends Component {
                 })
         
     }
-    // Collect data from state
-    // prepare data according to api
-    // Make an api call on http://localhost:5000/api/save-order-feedback
-    // On success this.props.history.push('/Secondpage') 
-    // On failure show the message 
-
+    
+   
 
     render() {
         console.log(this.props.location.search)
-        var optionButtonClasses = "circle";
+        var optionButtonClasses = "circle first";
         console.log(this.state.activeButton);
+        let animationClasses = (this.state.animate ? ' active': '');
+       
+
        
         return (
 
 
 
             <div className="container" >
-
+                <img className="Group-img"src={backgrd} alt="backgrd" ></img>
                 <div className="header">
-                    <h4>Header</h4>
+               
+               
+                <img className="logo"src={logo} alt="logo" ></img>
 
                     <div className="tip-bar"> <img className="bulb" src={bulb} alt="bulb" onClick={this.tip}></img>
                         <p>Tip</p>
                     </div>
+                    <p className="heading">Hey Amit,<br /><br/>How was your gift receiving experience?
+                </p>
+
+                           
                 </div>
 
-                <div>
-                    <hr />
-                </div>
-
-
-                <div className="progress-bar">
-                    <div className="improvement">
-
-                    </div>
-
-                </div>
-
+                <div class="progress-bar"></div>
 
 
                 <div className="detail-box">
 
-                    <div className="one">
-
-                        <h3 className="heading">Hey Amit,<br />How was your gift receiving<br />experience?
-                </h3>
-
-                        <p className="font" >Your feedback helps in improving the
-                  delivery experience</p>
-
-
-                        <div className="review-box">
-                            <div className={this._isButtonActive("dislike") ? optionButtonClasses + " active" : optionButtonClasses} onClick={this._handleOnClick} id="dislike123"
-                  /* style={this.state.activeButton == "dislike" ? {backgroundColor:this.state.bgColor}: {}}>*/>
+                
+                <p className="font" >Your feedback is important for us to serve you best and exciting gift experience
+                  delivery experience</p>  
+                 <div className="review-box">
+                            <div   className={this._isButtonActive("dislike") ? optionButtonClasses +" active" : optionButtonClasses} onClick={this._handleOnClick} id="dislike123">
+               
                                 <img className="thumb" src={thumb1} id="dislike" />
 
                             </div>
-
-                            <div className="circle" onClick={this._handleOnClick} id="like" className={this._isButtonActive("like") ? optionButtonClasses + " active" : optionButtonClasses}
-                  /*style={this.state.activeButton == "like" ? {backgroundColor:this.state.bgColor}: {}}>*/>
+                            <div className="circle" onClick={this._handleOnClick} id="like" className={this._isButtonActive("like") ? optionButtonClasses + " active" : optionButtonClasses}>
+                  
 
                                 <img className="thumb" src={thumb2} id="like" />
                             </div>
@@ -192,10 +185,13 @@ class App extends Component {
                             this._isButtonActive("dislike") ?
 
 
-                                   <div className= "dislike-buttons">
+                                   <div className= "dislike-buttons ">
+                                        <div class="line"></div>
+                                     
                                     {this.state.items.map((item) => (
                                        
-                                        < button onClick={()=>this.btn(item.id)}>{item.name}</button>
+                                        < button className=" ml" onClick={this.btnClick} 
+                                        >{item.name}</button>
                                       
                                     
                                     ))
@@ -204,18 +200,7 @@ class App extends Component {
                                 : null
                         }
 
-                        {
-                            this._isButtonActive("like") ?
-
-                                <div className="like-buttons">
-                                    <button className="btn inactive">Good</button>
-                                    <button className="btn inactive">Best</button>
-                                    <button className="btn inactive" className="margin">Average</button>
-                                </div>
-
-
-                                : null
-                        }
+                        </div>
                         {
                             this.state.toggle ?
 
@@ -238,10 +223,11 @@ class App extends Component {
 
 
 
-                    </div>
-
-                </div>
-                <button className={this.state.selectedOption.length > 0 ? "submit-btn1 btnactive" : "submit-btn1"} onClick={this._handleSubmit.bind(this)} id="submit">Submit & Continue</button>
+                    
+                    <div class="progress-bar"></div>
+                   
+                
+                <button className={this.state.selectedOption.length > 0 ? "submit-btn1 btnactive" : "submit-btn1"} onClick={this._handleSubmit.bind(this)} id="submit"> Continue</button>
             </div>
 
         );

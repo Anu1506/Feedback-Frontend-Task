@@ -3,9 +3,10 @@ import ReactDOM from 'react-dom';
 import { Router, Route } from 'react-router-dom';
 import './index.css';
 import { createBrowserHistory } from 'history';
-import App from './App';
-import Secondpage from "./Secondpage";
-import Feedback from "./Feedback";
+import App from './Component/App';
+import Secondpage from './Component/Secondpage';
+import Product from './Component/Product';
+import Feedback from './Component/Feedback';
 import * as serviceWorker from './serviceWorker';
 
 const history = createBrowserHistory();
@@ -13,6 +14,7 @@ ReactDOM.render(
 <Router history={history}>
     <Route path="/" exact component={App}></Route>
     <Route path="/Secondpage" component={Secondpage}></Route>
+    <Route path="/Product" component={Product}></Route>
     <Route path="/Feedback" component={Feedback}></Route>
 </Router> ,
 document.getElementById('root'));

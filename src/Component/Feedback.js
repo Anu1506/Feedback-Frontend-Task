@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import './App.css';
-import cross from './image/cross.png';
+import '../asset/Style.css';
+import cross from '../asset/img/cross.png';
 
 class Feedback extends Component {
             constructor(props) {
