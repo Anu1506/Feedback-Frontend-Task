@@ -9,17 +9,38 @@ import backgrd from '../asset/img/backgrd.png';
 import rose from '../asset/img/rose.jpg';
 import forward from '../asset/img/forward.png';
 import Giftbutton from '../Component/Giftbutton';
+import feedback from '../Component/Feedback';
 
 import { createBrowserHistory } from 'history';
+import Feedback from '../Component/Feedback';
 class Product extends Component {
 
     constructor(props) {
         super(props)
         this.goBack = this.goBack.bind(this);
         this.state =
-            {
+            {    toggle:false,
+                 toggle2:false,
                 selectedOption: '',
+                isOpened: false,
             }
+            this.toggleBox = this.toggleBox.bind(this);
+    }
+
+    tip = () => {
+        this.setState({ toggle: !this.state.toggle });
+
+    }
+
+
+
+    toggleBox=() => {
+        this.setState(oldState => ({ isOpened: !oldState.isOpened }));
+      }
+
+    feedback = () => {
+        this.setState({ toggle2: !this.state.toggle2 });
+
     }
 
     goBack() {
@@ -45,6 +66,7 @@ class Product extends Component {
     render() {
         var optionButtonClasses = "circle first";
         console.log(this.state.activeButton);
+        const { isOpened } = this.state;
 
         return (
             <div className="container">
@@ -83,22 +105,59 @@ class Product extends Component {
                         </div>
                       </div>
                         
-                        <img className="add"src={forward} alt="forward"></img>
+                        <img className="add"src={forward} alt="forward" onClick={this.toggleBox}></img>
                         
                        
                     
                     
                 </div>   
-                <div class="hrline"></div> 
+                <div class="hrline1"></div> 
+                { this.state.isOpened ?
                 <Giftbutton/>
+
+                :null}
                 <div class="feedback">
-            <a href="#" className="link-col">Leave more feedback</a>
+            <a href="#" className="link-col" onClick={this.feedback}>Leave more feedback</a>
                    </div>
-                 <div className="progress-bar">
+                 <div className="progress-bar1">
 
 
                     
                  </div>
+                 {
+                            this.state.toggle ?
+
+                                <div className="overlay-box" onClick={() => this.setState({ toggle: false })}>
+
+                                </div>
+                                : null
+                        }
+                        {
+                            this.state.toggle ?
+                                <div class="description">
+                                    <p>Help others make purchase decision-<br /><br />Write about your Service Experience:<br />Explain what you liked or disliked about the<br />services,did it meet your excpetence,was the <br />customer care helpful
+                                 enough..<br /><br />Write about your Product Experience<br />How good was the product,was therecipient<br />happy with the quality?</p>
+                                </div>
+
+
+                                : null
+                        }  
+
+{
+                            this.state.toggle2 ?
+
+                                <div className="overlay-box" onClick={() => this.setState({ toggle2: false })}>
+
+                                </div>
+                                : null
+                        }
+                        {
+                            this.state.toggle2?
+                            
+                             <Feedback/>
+
+                                : null
+                        }      
 
                 
                 <button className={this.state.selectedOption.length > 0 ? "submit-btn1 btnactive" : "submit-btn1"} id="submit1">Submit</button>

@@ -13,9 +13,14 @@ class Secondpage extends Component {
         super(props)
         this.goBack = this.goBack.bind(this);
         this.state =
-            {
+            {    toggle:false,
                 selectedOption: '',
             }
+    }
+
+      tip = () => {
+        this.setState({ toggle: !this.state.toggle });
+
     }
 
     goBack() {
@@ -97,10 +102,26 @@ class Secondpage extends Component {
                     </div>
 
                     <div className="progress-bar">
+                      </div>
+
+                      {
+                            this.state.toggle ?
+
+                                <div className="overlay-box" onClick={() => this.setState({ toggle: false })}>
+
+                                </div>
+                                : null
+                        }
+                        {
+                            this.state.toggle ?
+                                <div class="description">
+                                    <p>Help others make purchase decision-<br /><br />Write about your Service Experience:<br />Explain what you liked or disliked about the<br />services,did it meet your excpetence,was the <br />customer care helpful
+                                 enough..<br /><br />Write about your Product Experience<br />How good was the product,was therecipient<br />happy with the quality?</p>
+                                </div>
 
 
-                    
-                 </div>
+                                : null
+                        }  
                     <button className={this.state.selectedOption.length > 0 ? "submit-btn1 btnactive" : "submit-btn1"} id="submit1">Continue</button>
                 </div>
                 );

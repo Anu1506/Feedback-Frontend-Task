@@ -1,30 +1,26 @@
 import React, { Component } from 'react';
 import '../asset/Style.css';
 import cross from '../asset/img/cross.png';
-
+import Product from '../Component/Product';
 class Feedback extends Component {
-            constructor(props) {
-            super(props);
-            this.goBack = this.goBack.bind(this);
-        }
-        goBack() {
-            this.props.history.goBack();
-        }
+            
     
     render() {
         return (
-            <div className="feedback-container">
-        <div className="feedback-header">
+            
+        <div className="More-Feedback">
+            
+            
             <div>
-                <img className="cross" src={cross} onClick={this.goBack}/>
+            
+                <img className="cross" src={cross} onClick={() => this.setState({ toggle2: false })}/>
             </div>
-        </div>
-        <div>
-            <hr />
-        </div>
-        <textarea className="feedback-para" Placeholder="Write Your Feedback Here"></textarea>
+            
+       
+        <h2 className="More-heading">More Comments</h2>
+        <textarea className="feedback-para" Placeholder="Write your comment"></textarea>
         
-        <button className="done-btn">Done</button>
+        <button className="done-btn">SAVE</button>
     </div>
             );
         }

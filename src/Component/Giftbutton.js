@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import '../asset/Style.css';
-
+import downward from '../asset/img/downward.png';
 class Giftbutton extends Component {
  
     render() {
         return (
-            <div className="gift-view1">
-        
+            
+            <div className="gift-view">
+           <img className="addchange"src={downward} alt="downward" onClick={this.toggleBox}></img>
             <p className="font-btn">Where we can improve?</p>
 
 
@@ -16,7 +17,7 @@ class Giftbutton extends Component {
                 <button >Taste</button>
 
             </div>
-            <div class="hrline"></div> 
+            <div class="hrline2"></div> 
            
 
             
