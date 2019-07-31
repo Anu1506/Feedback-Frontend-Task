@@ -42,7 +42,7 @@ class App extends Component {
     
     _handleOnClick = (e) => {
         const elementId = e.target.getAttribute('id');
-        fetch("http://localhost:5000/api/order-comments-list/2")
+        fetch("http://localhost:5000/api/order-comments-list/a2")
             .then(
 
                 res => res.json()
@@ -170,7 +170,7 @@ class App extends Component {
                 <p className="font" >Your feedback is important for us to serve you best and exciting gift experience
                   delivery experience</p>  
                  <div className="review-box">
-                            <div   className={this._isButtonActive("dislike") ? optionButtonClasses +" active" : optionButtonClasses} onClick={this._handleOnClick} id="dislike123">
+                            <div  className={this._isButtonActive("dislike") ? optionButtonClasses +" active" : optionButtonClasses} onClick={this._handleOnClick} id="dislike123">
                
                                 <img className="thumb" src={thumb1} id="dislike" />
 

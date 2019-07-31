@@ -114,14 +114,14 @@ class Product extends Component {
             url: 'http://localhost:5000/api/save-order-product-feedback',
             data: {
                 order_id: '10',
+                product_id:'1',
                 comment_id: 1,
                 user_id: '0',
                 feedback_by: '2',
                 rating: '0',
-                status: '2'
-                
-               
-               
+                feedback:'',
+                status: '2',
+                image_path:''   
             }
         })        
                 .then(response => {
@@ -133,7 +133,7 @@ class Product extends Component {
         
     }
 
-
+i
     render() {
         var optionButtonClasses = "circle first";
         console.log(this.state.activeButton);
