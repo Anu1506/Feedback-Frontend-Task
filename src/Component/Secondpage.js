@@ -26,22 +26,23 @@ class Secondpage extends Component {
     goBack() {
         this.props.history.goBack();
     }
-
-    _handleClick() {
-        this.props.history.push('/Product')
-        console.log("Submitted");
-    }
+    
     handleOnClick = (e) => {
         const elementId = e.target.getAttribute('id');
         this.setState({
             activeButton: elementId,
-            backgroundColor: 'green',
             selectedOption: elementId
         });
+        this.props.history.push('/Product')
+        console.log("Submitted");
 
 
     }
+  
 
+
+
+    
     isButtonActive(buttonId) {
         return this.state.activeButton === buttonId;
     }
@@ -89,13 +90,13 @@ class Secondpage extends Component {
                     <p className="font">We will improve our product quality based on  your rating and feedback</p>
 
                     <div className="review-box">
-                        <div className={this.isButtonActive("gift") ? optionButtonClasses + " active " : optionButtonClasses} onClick={this.handleOnClick} id="gift">
-                            <img className="thumb" src={thumb1} id="gift" />
+                        <div className={this.isButtonActive("click1") ? optionButtonClasses +" active" : optionButtonClasses} onClick={this.handleOnClick}  id="click1">
+                            <img className="thumb" src={thumb1} id="click1" />
 
                         </div>
 
-                        <div className="circle" id="circle4" onClick={this._handleClick.bind(this)}>
-                            <img className="thumb" src={thumb2} />
+                        <div className="circle" onClick={this.handleOnClick} id="click2" className={this.isButtonActive("click2") ? optionButtonClasses + " active" : optionButtonClasses}>
+                            <img className="thumb" src={thumb2} id="click2" />
 
                         </div>
                     </div>

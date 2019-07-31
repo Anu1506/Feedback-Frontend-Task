@@ -10,7 +10,7 @@ import rose from '../asset/img/rose.jpg';
 import forward from '../asset/img/forward.png';
 import Giftbutton from '../Component/Giftbutton';
 import feedback from '../Component/Feedback';
-
+import axios from 'axios';
 import { createBrowserHistory } from 'history';
 import Feedback from '../Component/Feedback';
 class Product extends Component {
@@ -23,6 +23,12 @@ class Product extends Component {
                  toggle2:false,
                 selectedOption: '',
                 isOpened: false,
+                products:[],
+                btns:[],
+                dislike:1,
+                like:2,
+                
+                
             }
             this.toggleBox = this.toggleBox.bind(this);
     }
@@ -31,12 +37,63 @@ class Product extends Component {
         this.setState({ toggle: !this.state.toggle });
 
     }
+    btnOnClick = (e) => {
+        const elementId = e.target.getAttribute('id');
+        fetch("http://localhost:5000/api/order-product-list/1376")
+            .then(
+
+                res => res.json()
+            )
+            .then(
+
+                (result) => {
+                    console.log(JSON.stringify(result, "res"))
+                    this.setState({
+                        activeButton: elementId,
+                        backgroundColor: 'green',
+                        selectedOption: elementId,
+                        isLoaded: true,
+                        products: result.data
+                    });
+                },
+
+                (error) => {
+                    console.log('errr')
+                    this.setState({
+                        isLoaded: true,
+                        error
+                    });
+                }
+            )
+
+
+
+
+    }
+   
 
 
 
     toggleBox=() => {
-        this.setState(oldState => ({ isOpened: !oldState.isOpened }));
+    this.setState(oldState => ({ isOpened: !oldState.isOpened }));
+    fetch("http://localhost:5000/api/product-comments-list/2")
+    .then(res => res.json())
+    .then(
+      (result) => {
+        this.setState({
+          isLoaded: true,
+          btns: result.data
+        });
+      },
+      
+      (error) => {
+        this.setState({
+          isLoaded: true,
+          error
+        });
       }
+    )
+  }
 
     feedback = () => {
         this.setState({ toggle2: !this.state.toggle2 });
@@ -46,28 +103,42 @@ class Product extends Component {
     goBack() {
         this.props.history.goBack();
     }
-    handleOnClick = (e) => {
-        const elementId = e.target.getAttribute('id');
-        this.setState({
-            activeButton: elementId,
-            bgcolor: 'gray',
-            selectedOption: elementId
-        });
-
-
-    }
+    
 
     isButtonActive(buttonId) {
         return this.state.activeButton === buttonId;
     }
-
+    handleSubmit() {
+        axios({
+            method: 'post',
+            url: 'http://localhost:5000/api/save-order-product-feedback',
+            data: {
+                order_id: '10',
+                comment_id: 1,
+                user_id: '0',
+                feedback_by: '2',
+                rating: '0',
+                status: '2'
+                
+               
+               
+            }
+        })        
+                .then(response => {
+                    console.log(response)
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        
+    }
 
 
     render() {
         var optionButtonClasses = "circle first";
         console.log(this.state.activeButton);
         const { isOpened } = this.state;
-
+        // console.log(this.state.items);
         return (
             <div className="container">
                 <img className="Group-img"src={backgrd} alt="backgrd" ></img>
@@ -81,13 +152,13 @@ class Product extends Component {
                     <p className="font">We will improve our product quality based <br/>on  your rating and feedback</p>
 
                     <div className="review-box">
-                        <div className={this.isButtonActive("gift") ? optionButtonClasses + " active " : optionButtonClasses} onClick={this.handleOnClick} id="gift">
-                            <img className="thumb" src={thumb1} id="gift" />
+                        <div className={this.isButtonActive("btn1") ? optionButtonClasses +" active" : optionButtonClasses} onClick={this.btnOnClick}  id="btn1" >
+                            <img className="thumb" src={thumb1} id="btn1" />
 
                         </div>
 
-                        <div className="circle" id="circle4" >
-                            <img className="thumb" src={thumb2} />
+                        <div className="circle" onClick={this.btnOnClick} id="btn2" className={this.isButtonActive("btn2") ? optionButtonClasses + " active" : optionButtonClasses}>
+                            <img className="thumb" src={thumb2} id="btn2"/>
 
                         </div>
                     </div>
@@ -95,27 +166,48 @@ class Product extends Component {
 
                 </div>
                 <div className="progress-bar"></div>
+                {
+                            this.isButtonActive("btn2") ?
+                            (this.state.products.map((product) => (
                  <div className="giftwrapper">
+                
+                
                     <div className="giftbox">
-                        <img className="addproduct" src={rose}></img>
+                        <img className="addproduct" src={product.image}></img>
                         <div >
-                        <p className="textsize">True Soulmate</p>
+                        <p className="textsize">{product.title}</p>
                       
                         <p className="delivered">Delivered on:01 july 2019</p>
                         </div>
                       </div>
-                        
-                        <img className="add"src={forward} alt="forward" onClick={this.toggleBox}></img>
-                        
+                  <img className="add" src={forward} alt="forward" onClick={this.toggleBox}></img>
+                  { this.state.isOpened ?
+                <div className="gift-view">
+                <div class="hrline2"></div> 
+               <p className="font-btn">Where we can improve?</p>
+
+                {this.state.btns.map((btn) => (
+                <Giftbutton name={btn.name}/>
+                 ))}
+
+                
+           
+
+            
+            
+               </div>
+                :null}
                        
                     
                     
-                </div>   
+                  
                 <div class="hrline1"></div> 
-                { this.state.isOpened ?
-                <Giftbutton/>
-
-                :null}
+            
+                </div>
+                )))
+                  : null }
+               
+                
                 <div class="feedback">
             <a href="#" className="link-col" onClick={this.feedback}>Leave more feedback</a>
                    </div>
@@ -160,7 +252,7 @@ class Product extends Component {
                         }      
 
                 
-                <button className={this.state.selectedOption.length > 0 ? "submit-btn1 btnactive" : "submit-btn1"} id="submit1">Submit</button>
+                <button className={this.state.selectedOption.length > 0 ? "submit-btn1 btnactive" : "submit-btn1"} onClick={this.handleSubmit} id="submit1">Submit</button>
             </div>
 
         );
