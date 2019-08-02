@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import '../asset/Style.css';
 import cross from '../asset/img/cross.png';
-import Product from '../Component/Product';
 class Feedback extends Component {
             
     

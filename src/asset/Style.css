@@ -169,7 +169,8 @@ color:gray;
     height: 1px;
     background-color: #edf1f7;
     margin: 0 auto;
-    margin-top: 40px;
+    margin-top: 70px;
+  
   
 }
   
@@ -183,36 +184,14 @@ color:gray;
     margin-top: 10px;
   
 }
-  
-  
-  
 
-
-
-/*hr.line
-{
- 
- border: 1;
- box-shadow: inset 0 9px 9px -3px rgba(11, 184, 132, 0.8);
- -webkit-border-radius: 5px;
- -moz-border-radius: 5px;
- -ms-border-radius: 5px;
- -o-border-radius: 5px;
- border-radius: 5px;
- padding: 1px;
- 
-} */
  
 .detail-box 
 {
-
  padding-block:0px;
  text-align: center;
  margin-bottom: 18px;
- 
- 
- 
-}
+ }
 
 .arrow
 {
@@ -230,9 +209,6 @@ color:gray;
 .first{
   margin-right:30px;
 }
-
-
-
 
 .like-buttons button
 {
@@ -279,11 +255,7 @@ color:gray;
 
 .review-box
 {
-
- 
-
  overflow: auto;
-
  display: inline;
  
 }
@@ -306,7 +278,6 @@ padding-bottom: 20px;
  border-radius: 6px;
  border: 1px solid rgb(175, 172, 172);
  display:inline-block;
-
 }
 
 
@@ -317,8 +288,7 @@ padding-bottom: 20px;
 }
 .inactive{
  background-color:white !important;
- 
-}
+ }
 
 .btnactive{
  background-color:green !important;
@@ -400,15 +370,9 @@ margin: 0 auto;
 {
  width: 95%;
  margin: 0 auto;
-
  position: relative;
  padding-top:10px;
-
- 
 }
-
-
-
 
 .addproduct
 {
@@ -425,29 +389,22 @@ margin: 0 auto;
 {
  width: 50%;
  margin: 0 auto;
- 
  position: relative;
- 
  display: inline-block;
 }
 .giftbox2
 {
  width: 50%;
  margin: 0 auto;
- 
  position: relative;
-
  display: inline-block;
 }
 
 
 .textsize
 {
- 
-
  padding-left: 15px;
  display:inline-block;
-
  font-family: Lato;
  font-size: 16px;
  font-weight: bold;
@@ -465,7 +422,6 @@ font-weight: normal;
 font-style: italic;
 letter-spacing: normal;
 color: #1c2120;
-
 padding-left: 80px;
 }
 .left{
@@ -479,17 +435,13 @@ margin-bottom: 40px;
 
 .gift-button button
 {
- background:  white; 
- 
+  background:  white; 
+ border-radius: 4px;
  padding: 10px;
  text-align: center;
- margin-bottom: 10px;
+ color:gray; 
+ float: left;
  margin-left: 12px;
- border-radius:4px;
- color: gray;
- font-size: 11px;
-
-
 }
 
 .giftimage
@@ -499,7 +451,6 @@ font-size: 14px;
 margin-right: 5px;
 right: 8px;
 bottom: 2px;
-
 }
 .link-col
 {
@@ -515,8 +466,7 @@ color: green;
  position: relative;
  margin-bottom: 50px ; 
  color: green;
- margin-top: 20px;
- 
+ margin-top: 20px; 
 }
 .feedback-container
 {
@@ -525,8 +475,7 @@ color: green;
  border: 1px solid black;
  position: relative;
  height:450px; 
- 
-}
+ }
 .feedback-header
 {
  height: 40px;
@@ -543,15 +492,6 @@ color: green;
  float: right;
  padding-right: 10px;
 }
-/*.feedback-box 
-{
- margin: 10px;
- padding-block:0px;
- border: 1px solid black;
- margin-bottom: 50px;
- height: 150px;
- 
-} */
 
 .feedback-para
 {
@@ -597,9 +537,6 @@ border-radius: 5px;
 .top{
   padding-bottom: 20px;
 }
-
-
-
 .check{
  width:40px;
  height: 40px;
@@ -629,9 +566,39 @@ border-radius: 5px;
  margin-left: 100px;
  margin-bottom: 20px;
  font-size: 16px;
+}
+.rectangle
+{
+  width: 50px;
+  height: 50px;
+  background-color: #199100;
+  border-radius: 50px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
 
+
+.path
+{
+ padding:15px;
+ width: 30px;
+ padding-left: 10px;
+}
+.Thanks-text {
+
+  width: 322px;
+  height: 66px;
+  opacity: 0.7;
+  font-family: Lato;
+  font-size: 16px;
+  line-height: 1.38;
+  letter-spacing: normal;
+  text-align: center;
+  color: #1c2120;
 
 }
+
 .edit-image
 {
  font-size: 15px;
@@ -664,6 +631,7 @@ float: left;
  height: 150px;
  clear: both;
 }
+
 
 .pen
 {

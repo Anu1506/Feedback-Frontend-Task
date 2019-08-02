@@ -7,6 +7,7 @@ import App from './Component/App';
 import Secondpage from './Component/Secondpage';
 import Product from './Component/Product';
 import Feedback from './Component/Feedback';
+import Thankyou from './Component/Thankyou';
 import * as serviceWorker from './serviceWorker';
 
 const history = createBrowserHistory();
@@ -16,6 +17,7 @@ ReactDOM.render(
     <Route path="/Secondpage" component={Secondpage}></Route>
     <Route path="/Product" component={Product}></Route>
     <Route path="/Feedback" component={Feedback}></Route>
+    <Route path="/Thankyou" component={Thankyou}></Route>
 </Router> ,
 document.getElementById('root'));
 

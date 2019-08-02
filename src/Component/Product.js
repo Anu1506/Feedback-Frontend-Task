@@ -6,10 +6,11 @@ import thumb1 from '../asset/img/thumb1.png';
 import thumb2 from '../asset/img/thumb2.png';
 import arrow from '../asset/img/arrow.png';
 import backgrd from '../asset/img/backgrd.png';
-import rose from '../asset/img/rose.jpg';
 import forward from '../asset/img/forward.png';
 import Giftbutton from '../Component/Giftbutton';
 import feedback from '../Component/Feedback';
+import Thankyou from '../Component/Thankyou';
+import Project from '../Configure/Project';
 import axios from 'axios';
 import { createBrowserHistory } from 'history';
 import Feedback from '../Component/Feedback';
@@ -17,10 +18,12 @@ class Product extends Component {
 
     constructor(props) {
         super(props)
+        console.log(this.props)
         this.goBack = this.goBack.bind(this);
         this.state =
             {    toggle:false,
                  toggle2:false,
+                 toggle3:false,
                 selectedOption: '',
                 isOpened: false,
                 products:[],
@@ -39,7 +42,7 @@ class Product extends Component {
     }
     btnOnClick = (e) => {
         const elementId = e.target.getAttribute('id');
-        fetch("http://localhost:5000/api/order-product-list/1376")
+        fetch(Project.apiBaseUrl+"order-product-list/1376")
             .then(
 
                 res => res.json()
@@ -76,7 +79,7 @@ class Product extends Component {
 
     toggleBox=() => {
     this.setState(oldState => ({ isOpened: !oldState.isOpened }));
-    fetch("http://localhost:5000/api/product-comments-list/2")
+    fetch(Project.apiBaseUrl+"product-comments-list/2")
     .then(res => res.json())
     .then(
       (result) => {
@@ -108,10 +111,12 @@ class Product extends Component {
     isButtonActive(buttonId) {
         return this.state.activeButton === buttonId;
     }
-    handleSubmit() {
+    handleSubmit=() =>{
+        
+
         axios({
             method: 'post',
-            url: 'http://localhost:5000/api/save-order-product-feedback',
+            url:Project.apiBaseUrl+'save-order-product-feedback',
             data: {
                 order_id: '10',
                 product_id:'1',
@@ -124,19 +129,20 @@ class Product extends Component {
                 image_path:''   
             }
         })        
-                .then(response => {
-                    console.log(response)
-                })
+              .then(response => {
+                this.props.history.push('/Thankyou')
+               })
+               
                 .catch(error => {
                     console.log(error)
                 })
         
     }
 
-i
+
     render() {
         var optionButtonClasses = "circle first";
-        console.log(this.state.activeButton);
+        console.log(this.props);
         const { isOpened } = this.state;
         // console.log(this.state.items);
         return (
@@ -152,7 +158,7 @@ i
                     <p className="font">We will improve our product quality based <br/>on  your rating and feedback</p>
 
                     <div className="review-box">
-                        <div className={this.isButtonActive("btn1") ? optionButtonClasses +" active" : optionButtonClasses} onClick={this.btnOnClick}  id="btn1" >
+                        <div className={this.isButtonActive("btn1") ? optionButtonClasses +" active" : optionButtonClasses} onClick={this.Thanks}  id="btn1" >
                             <img className="thumb" src={thumb1} id="btn1" />
 
                         </div>
@@ -235,7 +241,7 @@ i
                                 : null
                         }  
 
-{
+                        {
                             this.state.toggle2 ?
 
                                 <div className="overlay-box" onClick={() => this.setState({ toggle2: false })}>
@@ -249,7 +255,10 @@ i
                              <Feedback/>
 
                                 : null
-                        }      
+                        }   
+                        
+                       
+   
 
                 
                 <button className={this.state.selectedOption.length > 0 ? "submit-btn1 btnactive" : "submit-btn1"} onClick={this.handleSubmit} id="submit1">Submit</button>
