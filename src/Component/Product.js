@@ -41,6 +41,7 @@ class Product extends Component {
 
     }
     btnOnClick = (e) => {
+        
         const elementId = e.target.getAttribute('id');
         fetch(Project.apiBaseUrl+"order-product-list/1376")
             .then(
@@ -155,10 +156,14 @@ class Product extends Component {
                     <div className="tip-bar"> <img className="bulb" src={bulb} alt="bulb" onClick={this.tip}></img>
                         <p>Tip</p>
                     </div >
+
+                    <p className="heading">Hey Amit,<br /><br />
+                        How was the quality of gift you <br />have receieved?
+                </p>
                     <p className="font">We will improve our product quality based <br/>on  your rating and feedback</p>
 
                     <div className="review-box">
-                        <div className={this.isButtonActive("btn1") ? optionButtonClasses +" active" : optionButtonClasses} onClick={this.Thanks}  id="btn1" >
+                        <div className={this.isButtonActive("btn1") ? optionButtonClasses +" active" : optionButtonClasses} onClick={this.btnOnClick}  id="btn1" >
                             <img className="thumb" src={thumb1} id="btn1" />
 
                         </div>

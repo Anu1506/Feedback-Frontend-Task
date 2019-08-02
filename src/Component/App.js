@@ -7,8 +7,9 @@ import bulb from '../asset/img/bulb.png';
 import backgrd from '../asset/img/backgrd.png';
 import thumb1 from '../asset/img/thumb1.png';
 import thumb2 from '../asset/img/thumb2.png';
-import Secondpage from '../Component/Secondpage';
+import Product from '../Component/Product';
 import Project from '../Configure/Project';
+import dislike from '../asset/img/dislike.png';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
@@ -98,7 +99,7 @@ class App extends Component {
             }
         })
             .then(response => {
-               this.props.history.push('/Secondpage')
+               this.props.history.push('/Product')
             })
             .catch(error => {
                 console.log(error)
@@ -115,11 +116,8 @@ class App extends Component {
         var optionButtonClasses = "circle first";
         console.log(this.state.activeButton);
         let animationClasses = (this.state.animate ? ' active' : '');
-
-
-
         return (
-            // 
+    
         
             <div className="container" >
                 <ToastContainer enableMultiContainer containerId={'A'} position={toast.POSITION.BOTTOM_LEFT} />
@@ -146,7 +144,7 @@ class App extends Component {
                         <div className={this._isButtonActive("like") ? optionButtonClasses + " active" : optionButtonClasses} onClick={this._handleOnClick} id="like">
 
                             <img className="thumb" src={thumb1} id="like" />
-
+                            
                         </div>
                         <div className="circle" onClick={this._handleOnClick} id="dislike" className={this._isButtonActive("dislike") ? optionButtonClasses + " active" : optionButtonClasses}>
 
@@ -155,16 +153,15 @@ class App extends Component {
                         </div>
                     </div>
                     {
-                        this._isButtonActive("dislike") ?
-
+                        this._isButtonActive("dislike") ? 
 
                             <div className="dislike-buttons ">
+                             <img className="thumb" src={dislike} id="like" />
                                 <div class="line"></div>
-
+                                
                                 {this.state.items.map((item) => (
-
-                                    < button className=" ml" onClick={this.btnClick}
-                                    >{item.name}</button>
+                                   
+                                    < button className="ml btn-inactive">{item.name}</button>
                                 ))
                                 }
                             </div>
