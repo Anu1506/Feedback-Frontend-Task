@@ -186,29 +186,32 @@ color:gray;
   margin-right:30px;
 }
 
-.Btn2 button
+.Btn1
 {
  background:  white;
- border-radius: 8px;
- padding: 5px 15px;
+ border-radius: 5px;
+ padding:10px;
  text-align: center;
- margin-bottom: 10px;
- margin-left: 3px;
  float:left;
  color:green;
  border-color: green;
+ margin-left: 10px;
+
+
 
 }
 
-.Btn1 button
+.Btn2
 {
  background:  white;
  border-radius: 5px;
  padding: 10px;
  text-align: center;
  color:gray;
- box-shadow:green;
  float: left;
+ margin-left: 10px;
+
+
 
 }
 

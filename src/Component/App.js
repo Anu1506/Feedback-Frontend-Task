@@ -63,6 +63,7 @@ class App extends Component {
           console.log(JSON.stringify(result, "res"));
           console.log("like");
           this.hideLoader();
+          this.toggleImage();
           this.setState({
             activeButton: elementId,
             backgroundColor: "green",
@@ -123,6 +124,7 @@ class App extends Component {
   };
 
   render() {
+    const imageName = this.getImageName();
     console.log(this.props.location.search);
     var optionButtonClasses = "circle first";
     console.log(this.state.activeButton);
@@ -194,7 +196,9 @@ class App extends Component {
                     item.name === this.state.selectedButton ? "Btn1" : "Btn2"
                   }
                   onClick={() => this.buttonClick(item.name)}
-                />
+                >
+                  {item.name}
+                </button>
               ))}
             </div>
           ) : null}
