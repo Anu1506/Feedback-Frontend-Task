@@ -1,4 +1,4 @@
 export default {
-    apiBaseUrl: 'http://localhost:5000/api/',
-    perPageProducts: 20,
-    };
+  apiBaseUrl: "http://express.bakewish.in/api/",
+  perPageProducts: 20
+};

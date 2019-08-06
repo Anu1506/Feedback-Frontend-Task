@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
 body{
   margin: 0;
-  padding: 0; 
+  padding: 0;
   height: 100%;
 }
 
@@ -29,7 +29,7 @@ body{
   font-style: normal;
   font-weight: bold;
   color: #1c2120
-  
+
 }
 
 .font
@@ -64,25 +64,25 @@ color:gray;
  .container{
      width:100%;
      height: auto;
- 
+
  }
 }
- 
 
- 
+
+
  .ml{
    margin-left: 10px;
  }
 
 
 .header
-{ 
+{
  text-align: center;
- padding-left: 10px;  
+ padding-left: 10px;
  margin-top: 38px;
 }
 
-.Group-img { 
+.Group-img {
   position:absolute;
   margin-top: 0px;
   margin-left: 23px;
@@ -108,8 +108,8 @@ color:gray;
 .bulb
 {
  padding:5px;
- width: 15px; 
- float: left; 
+ width: 15px;
+ float: left;
 }
 
 .progress-bar
@@ -118,7 +118,7 @@ color:gray;
     height: 15px;
     background-color: #edf1f7;
     margin-top: 85px;
-  
+
 
 }
 .progress-bar1
@@ -146,10 +146,10 @@ color:gray;
     background-color: #edf1f7;
     margin: 0 auto;
     margin-top: 70px;
-  
-  
+
+
 }
-  
+
 
 .hrline2
 {
@@ -158,11 +158,11 @@ color:gray;
     background-color: #edf1f7;
     margin: 0 auto;
     margin-top: 10px;
-  
+
 }
 
- 
-.detail-box 
+
+.detail-box
 {
  padding-block:0px;
  text-align: center;
@@ -180,39 +180,42 @@ color:gray;
 
 .review-button
 {
- display: none;  
+ display: none;
 }
 .first{
   margin-right:30px;
 }
 
-.like-buttons button
+.Btn2 button
 {
- background:  white; 
+ background:  white;
  border-radius: 8px;
  padding: 5px 15px;
  text-align: center;
  margin-bottom: 10px;
  margin-left: 3px;
- 
+ float:left;
+ color:green;
+ border-color: green;
+
 }
 
-.dislike-buttons button
+.Btn1 button
 {
- background:  white; 
+ background:  white;
  border-radius: 5px;
  padding: 10px;
  text-align: center;
  color:gray;
  box-shadow:green;
  float: left;
- 
+
 }
 
 
 .submit-btn1
 {
-     
+
      background: rgb(72, 177, 23);
      color: #FFF;
      border-radius: 5px;
@@ -233,7 +236,7 @@ color:gray;
 {
  overflow: auto;
  display: inline;
- 
+
 }
 
 span
@@ -260,7 +263,7 @@ padding-bottom: 20px;
 
 .active{
  background-color: green !important;
- 
+
 }
 .inactive{
  background-color:white !important;
@@ -268,11 +271,11 @@ padding-bottom: 20px;
 
 .btnactive{
  background-color:green !important;
- 
+
 }
 .btninactive{
  background-color:grey!important;
- 
+
 }
 
 
@@ -304,12 +307,12 @@ padding-bottom: 20px;
  box-sizing: border-box;
  left: 0;
  z-index: 2;
- 
+
 }
 
 .More-Feedback
 {
- 
+
  position: absolute;
  bottom: 0;
  width: 100%;
@@ -318,7 +321,7 @@ padding-bottom: 20px;
  box-sizing: border-box;
  left: 0;
  z-index: 2;
- 
+
 }
 
 .More-heading {
@@ -327,7 +330,7 @@ padding-bottom: 20px;
   font-weight: bold;
   text-align: center;
   color: #1c2120;
-  
+
 
 }
 
@@ -353,9 +356,9 @@ margin: 0 auto;
 
 .addproduct
 {
- 
+
  border-color: #edf1f7;
- float:left; 
+ float:left;
  width: 60px;
  height: 60px;
  border-style: double;
@@ -412,11 +415,11 @@ margin-bottom: 40px;
 
 .gift-button button
 {
-  background:  white; 
+  background:  white;
  border-radius: 4px;
  padding: 10px;
  text-align: center;
- color:gray; 
+ color:gray;
  float: left;
  margin-left: 12px;
 }
@@ -441,9 +444,9 @@ color: green;
  text-align: center;
  font-size: 14px;
  position: relative;
- margin-bottom: 50px ; 
+ margin-bottom: 50px ;
  color: green;
- margin-top: 20px; 
+ margin-top: 20px;
 }
 .feedback-container
 {
@@ -451,7 +454,7 @@ color: green;
  margin: 0 auto;
  border: 1px solid black;
  position: relative;
- height:450px; 
+ height:450px;
  }
 .feedback-header
 {
@@ -485,20 +488,20 @@ border-radius: 5px;
 }
 
 .add{
- 
+
  position: absolute;
  background-position-y: 5px;
  padding:5px;
- width: 12px; 
+ width: 12px;
  right: 10px;
  top:20px;
 }
 .addchange{
- 
+
   position: absolute;
   background-position-y: 5px;
   padding:5px;
-  width: 12px; 
+  width: 12px;
   right: 10px;
   top:20px;
  }
@@ -564,7 +567,7 @@ border-radius: 5px;
 }
 .Thanks-text {
 
-  
+
   font-family: Lato;
   font-size: 16px;
   line-height: 1.38;
@@ -585,7 +588,7 @@ border-radius: 5px;
  box-sizing: border-box;
  display: none;
  z-index: 2;
- 
+
 }
 .text-right
 {
@@ -599,10 +602,10 @@ float: left;
 
 .edit-box
 {
- 
+
  padding-block:0px;
  border: 1px solid black;
- margin-bottom: 25px; 
+ margin-bottom: 25px;
  height: 150px;
  clear: both;
 }
@@ -616,3 +619,23 @@ float: left;
  float: right;
 }
 
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 10px;
+  height: 10px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
