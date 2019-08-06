@@ -8,7 +8,6 @@ import thumb1 from "../asset/img/thumb1.png";
 import thumb2 from "../asset/img/thumb2.png";
 import Product from "../Component/Product";
 import Project from "../Configure/Project";
-import dislike from "../asset/img/dislike.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
@@ -49,6 +48,7 @@ class App extends Component {
   showLoader = () => {
     this.setState({ loading: true });
   };
+
   _handleOnClick = e => {
     const elementId = e.target.getAttribute("id");
     const _this = this;
@@ -57,6 +57,8 @@ class App extends Component {
       .then(res => res.json())
       .then(
         result => {
+          this.setState(state => ({ open: !state.open }));
+
           toast.error("Error Notification !", {
             position: toast.POSITION.TOP_LEFT
           });
@@ -146,7 +148,7 @@ class App extends Component {
             <p>Tip</p>
           </div>
           <p className="heading">
-            Hey Amit,
+            Hey,
             <br />
             <br />
             How was your gift receiving experience?
@@ -243,7 +245,6 @@ class App extends Component {
           onClick={this._handleSubmit.bind(this)}
           id="submit"
         >
-          {this.state.loading ? <div className="loader" /> : null}
           Continue
         </button>
       </div>

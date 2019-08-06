@@ -6,9 +6,9 @@ class Giftbutton extends Component {
       <div className="gift-button">
         <button
           className={
-            this.props.btn.name === this.state.selectedButton ? "Btn1" : "Btn2"
+            this.props.name == this.props.btnselected ? "Btn1" : "Btn2"
           }
-          onClick={() => this.props.buttonClick(this.props.btn.name)}
+          onClick={() => this.props.a(this.props.name)}
         >
           {this.props.name}
         </button>

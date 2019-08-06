@@ -1,275 +1,304 @@
-import React, { Component } from 'react';
-import '../asset/Style.css';
-import logo from '../asset/img/logo.png';
-import bulb from '../asset/img/bulb.png';
-import thumb1 from '../asset/img/thumb1.png';
-import thumb2 from '../asset/img/thumb2.png';
-import arrow from '../asset/img/arrow.png';
-import backgrd from '../asset/img/backgrd.png';
-import forward from '../asset/img/forward.png';
-import Giftbutton from '../Component/Giftbutton';
-import feedback from '../Component/Feedback';
-import Thankyou from '../Component/Thankyou';
-import Project from '../Configure/Project';
-import axios from 'axios';
-import { createBrowserHistory } from 'history';
-import Feedback from '../Component/Feedback';
+import React, { Component } from "react";
+import "../asset/Style.css";
+import logo from "../asset/img/logo.png";
+import bulb from "../asset/img/bulb.png";
+import thumb1 from "../asset/img/thumb1.png";
+import thumb2 from "../asset/img/thumb2.png";
+import arrow from "../asset/img/arrow.png";
+import backgrd from "../asset/img/backgrd.png";
+import forward from "../asset/img/forward.png";
+import Giftbutton from "../Component/Giftbutton";
+import feedback from "../Component/Feedback";
+import Thankyou from "../Component/Thankyou";
+import Project from "../Configure/Project";
+import axios from "axios";
+import { createBrowserHistory } from "history";
+import Feedback from "../Component/Feedback";
 class Product extends Component {
-
-    constructor(props) {
-        super(props)
-        console.log(this.props)
-        this.goBack = this.goBack.bind(this);
-        this.state =
-            {    toggle:false,
-                 toggle2:false,
-                 toggle3:false,
-                selectedOption: '',
-                isOpened: false,
-                products:[],
-                btns:[],
-                dislike:1,
-                like:2,
-                
-                
-            }
-            this.toggleBox = this.toggleBox.bind(this);
-    }
-
-    tip = () => {
-        this.setState({ toggle: !this.state.toggle });
-
-    }
-    btnOnClick = (e) => {
-        
-        const elementId = e.target.getAttribute('id');
-        fetch(Project.apiBaseUrl+"order-product-list/1376")
-            .then(
-
-                res => res.json()
-            )
-            .then(
-
-                (result) => {
-                    console.log(JSON.stringify(result, "res"))
-                    this.setState({
-                        activeButton: elementId,
-                        backgroundColor: 'green',
-                        selectedOption: elementId,
-                        isLoaded: true,
-                        products: result.data
-                    });
-                },
-
-                (error) => {
-                    console.log('errr')
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
-
-
-
-
-    }
-   
-
-
-
-    toggleBox=() => {
-    this.setState(oldState => ({ isOpened: !oldState.isOpened }));
-    fetch(Project.apiBaseUrl+"product-comments-list/2")
-    .then(res => res.json())
-    .then(
-      (result) => {
-        this.setState({
-          isLoaded: true,
-          btns: result.data
-        });
-      },
-      
-      (error) => {
-        this.setState({
-          isLoaded: true,
-          error
-        });
-      }
-    )
+  constructor(props) {
+    super(props);
+    console.log(this.props);
+    this.goBack = this.goBack.bind(this);
+    this.state = {
+      toggle: false,
+      toggle2: false,
+      toggle3: false,
+      selectedOption: "",
+      isOpened: false,
+      products: [],
+      btns: [],
+      loading: false,
+      dislike: 1,
+      selectedButton: "",
+      like: 2
+    };
+    this.toggleBox = this.toggleBox.bind(this);
   }
 
-    feedback = () => {
-        this.setState({ toggle2: !this.state.toggle2 });
+  tip = () => {
+    this.setState({ toggle: !this.state.toggle });
+  };
+  hideLoader = () => {
+    this.setState({ loading: false });
+  };
 
-    }
+  showLoader = () => {
+    this.setState({ loading: true });
+  };
+  btnOnClick = e => {
+    const elementId = e.target.getAttribute("id");
+    this.showLoader();
+    fetch(Project.apiBaseUrl + "order-product-list/1376")
+      .then(res => res.json())
+      .then(
+        result => {
+          console.log(JSON.stringify(result, "res"));
+          this.hideLoader();
+          this.setState({
+            activeButton: elementId,
+            backgroundColor: "green",
+            selectedOption: elementId,
+            isLoaded: true,
+            products: result.data
+          });
+        },
 
-    goBack() {
-        this.props.history.goBack();
-    }
-    
+        error => {
+          console.log("errr");
+          this.hideloader();
+          this.setState({
+            isLoaded: true,
+            error
+          });
+        }
+      );
+  };
 
-    isButtonActive(buttonId) {
-        return this.state.activeButton === buttonId;
-    }
-    handleSubmit=() =>{
-        
+  toggleBox = () => {
+    this.showLoader();
+    this.setState(oldState => ({ isOpened: !oldState.isOpened }));
+    fetch(Project.apiBaseUrl + "product-comments-list/2")
+      .then(res => res.json())
+      .then(
+        result => {
+          this.hideLoader();
+          this.setState({
+            isLoaded: true,
+            btns: result.data
+          });
+        },
 
-        axios({
-            method: 'post',
-            url:Project.apiBaseUrl+'save-order-product-feedback',
-            data: {
-                order_id: '10',
-                product_id:'1',
-                comment_id: 1,
-                user_id: '0',
-                feedback_by: '2',
-                rating: '0',
-                feedback:'',
-                status: '2',
-                image_path:''   
-            }
-        })        
-              .then(response => {
-                this.props.history.push('/Thankyou')
-               })
-               
-                .catch(error => {
-                    console.log(error)
-                })
-        
-    }
+        error => {
+          this.hideLoader();
+          this.setState({
+            isLoaded: true,
+            error
+          });
+        }
+      );
+  };
 
+  feedback = () => {
+    this.setState({ toggle2: !this.state.toggle2 });
+  };
 
-    render() {
-        var optionButtonClasses = "circle first";
-        console.log(this.props);
-        const { isOpened } = this.state;
-        // console.log(this.state.items);
-        return (
-            <div className="container">
-                <img className="Group-img"src={backgrd} alt="backgrd" ></img>
-                <div className="header">
-                    <img className="arrow" src={arrow} alt="arrow" onClick={this.goBack}></img>
-                    <img className="logo" src={logo} alt="logo" ></img>
+  goBack() {
+    this.props.history.goBack();
+  }
+  buttonClick = name => {
+    this.setState({
+      selectedButton: name
+    });
+  };
 
-                    <div className="tip-bar"> <img className="bulb" src={bulb} alt="bulb" onClick={this.tip}></img>
-                        <p>Tip</p>
-                    </div >
+  isButtonActive(buttonId) {
+    return this.state.activeButton === buttonId;
+  }
+  handleSubmit = () => {
+    this.showLoader();
+    axios({
+      method: "post",
+      url: Project.apiBaseUrl + "save-order-product-feedback",
+      data: {
+        order_id: "10",
+        product_id: "1",
+        comment_id: 1,
+        user_id: "0",
+        feedback_by: "2",
+        rating: "0",
+        feedback: "bla-bla-bla",
+        status: "2",
+        image_path: ""
+      }
+    })
+      .then(response => {
+        this.props.history.push("/Thankyou");
+        this.hideLoader();
+      })
 
-                    <p className="heading">Hey Amit,<br /><br />
-                        How was the quality of gift you <br />have receieved?
-                </p>
-                    <p className="font">We will improve our product quality based <br/>on  your rating and feedback</p>
+      .catch(error => {
+        console.log(error);
+        this.hideLoader();
+      });
+  };
 
-                    <div className="review-box">
-                        <div className={this.isButtonActive("btn1") ? optionButtonClasses +" active" : optionButtonClasses} onClick={this.btnOnClick}  id="btn1" >
-                            <img className="thumb" src={thumb1} id="btn1" />
+  render() {
+    var optionButtonClasses = "circle first";
+    console.log(this.props);
+    const { isOpened } = this.state;
+    // console.log(this.state.items);
+    return (
+      <div className="container">
+        <img className="Group-img" src={backgrd} alt="backgrd" />
+        <div className="header">
+          <img
+            className="arrow"
+            src={arrow}
+            alt="arrow"
+            onClick={this.goBack}
+          />
+          <img className="logo" src={logo} alt="logo" />
 
-                        </div>
+          <div className="tip-bar">
+            {" "}
+            <img className="bulb" src={bulb} alt="bulb" onClick={this.tip} />
+            <p>Tip</p>
+          </div>
 
-                        <div className="circle" onClick={this.btnOnClick} id="btn2" className={this.isButtonActive("btn2") ? optionButtonClasses + " active" : optionButtonClasses}>
-                            <img className="thumb" src={thumb2} id="btn2"/>
+          <p className="heading">
+            Hey,
+            <br />
+            <br />
+            How was the quality of gift you <br />
+            have receieved?
+          </p>
+          <p className="font">
+            We will improve our product quality based <br />
+            on your rating and feedback
+          </p>
 
-                        </div>
-                    </div>
-
-
-                </div>
-                <div className="progress-bar"></div>
-                {
-                            this.isButtonActive("btn2") ?
-                            (this.state.products.map((product) => (
-                 <div className="giftwrapper">
-                
-                
-                    <div className="giftbox">
-                        <img className="addproduct" src={product.image}></img>
-                        <div >
-                        <p className="textsize">{product.title}</p>
-                      
-                        <p className="delivered">Delivered on:01 july 2019</p>
-                        </div>
-                      </div>
-                  <img className="add" src={forward} alt="forward" onClick={this.toggleBox}></img>
-                  { this.state.isOpened ?
-                <div className="gift-view">
-                <div class="hrline2"></div> 
-               <p className="font-btn">Where we can improve?</p>
-
-                {this.state.btns.map((btn) => (
-                <Giftbutton name={btn.name}/>
-                 ))}
-
-                
-           
-
-            
-            
-               </div>
-                :null}
-                       
-                    
-                    
-                  
-                <div class="hrline1"></div> 
-            
-                </div>
-                )))
-                  : null }
-               
-                
-                <div class="feedback">
-            <a href="#" className="link-col" onClick={this.feedback}>Leave more feedback</a>
-                   </div>
-                 <div className="progress-bar1">
-
-
-                    
-                 </div>
-                 {
-                            this.state.toggle ?
-
-                                <div className="overlay-box" onClick={() => this.setState({ toggle: false })}>
-
-                                </div>
-                                : null
-                        }
-                        {
-                            this.state.toggle ?
-                                <div class="description">
-                                    <p>Help others make purchase decision-<br /><br />Write about your Service Experience:<br />Explain what you liked or disliked about the<br />services,did it meet your excpetence,was the <br />customer care helpful
-                                 enough..<br /><br />Write about your Product Experience<br />How good was the product,was therecipient<br />happy with the quality?</p>
-                                </div>
-
-
-                                : null
-                        }  
-
-                        {
-                            this.state.toggle2 ?
-
-                                <div className="overlay-box" onClick={() => this.setState({ toggle2: false })}>
-
-                                </div>
-                                : null
-                        }
-                        {
-                            this.state.toggle2?
-                            
-                             <Feedback/>
-
-                                : null
-                        }   
-                        
-                       
-   
-
-                
-                <button className={this.state.selectedOption.length > 0 ? "submit-btn1 btnactive" : "submit-btn1"} onClick={this.handleSubmit} id="submit1">Submit</button>
+          <div className="review-box">
+            <div
+              className={
+                this.isButtonActive("btn1")
+                  ? optionButtonClasses + " active"
+                  : optionButtonClasses
+              }
+              onClick={this.btnOnClick}
+              id="btn1"
+            >
+              {this.state.loading ? <div className="loader" /> : null}
+              <img className="thumb" src={thumb1} id="btn1" />
             </div>
 
-        );
-    }
+            <div
+              className="circle"
+              onClick={this.btnOnClick}
+              id="btn2"
+              className={
+                this.isButtonActive("btn2")
+                  ? optionButtonClasses + " active"
+                  : optionButtonClasses
+              }
+            >
+              <img className="thumb" src={thumb2} id="btn2" />
+            </div>
+          </div>
+        </div>
+        <div className="progress-bar" />
+        {this.isButtonActive("btn2")
+          ? this.state.products.map(product => (
+              <div className="giftwrapper">
+                <div className="giftbox">
+                  <img className="addproduct" src={product.image} />
+                  <div>
+                    <p className="textsize">{product.title}</p>
+
+                    <p className="delivered">Delivered on:01 july 2019</p>
+                  </div>
+                </div>
+                <img
+                  className="add"
+                  src={forward}
+                  alt="forward"
+                  onClick={this.toggleBox}
+                />
+                {this.state.isOpened ? (
+                  <div className="gift-view">
+                    <div class="hrline2" />
+                    <p className="font-btn">Where we can improve?</p>
+
+                    {this.state.btns.map(btn => (
+                      <Giftbutton
+                        name={btn.name}
+                        btnselected={this.state.selectedButton}
+                        a={this.buttonClick}
+                      />
+                    ))}
+                  </div>
+                ) : null}
+
+                <div class="hrline1" />
+              </div>
+            ))
+          : null}
+
+        <div class="feedback">
+          <a href="#" className="link-col" onClick={this.feedback}>
+            Leave more feedback
+          </a>
+        </div>
+        <div className="progress-bar1" />
+        {this.state.toggle ? (
+          <div
+            className="overlay-box"
+            onClick={() => this.setState({ toggle: false })}
+          />
+        ) : null}
+        {this.state.toggle ? (
+          <div class="description">
+            <p>
+              Help others make purchase decision-
+              <br />
+              <br />
+              Write about your Service Experience:
+              <br />
+              Explain what you liked or disliked about the
+              <br />
+              services,did it meet your excpetence,was the <br />
+              customer care helpful enough..
+              <br />
+              <br />
+              Write about your Product Experience
+              <br />
+              How good was the product,was therecipient
+              <br />
+              happy with the quality?
+            </p>
+          </div>
+        ) : null}
+
+        {this.state.toggle2 ? (
+          <div
+            className="overlay-box"
+            onClick={() => this.setState({ toggle2: false })}
+          />
+        ) : null}
+        {this.state.toggle2 ? <Feedback /> : null}
+
+        <button
+          className={
+            this.state.selectedOption.length > 0
+              ? "submit-btn1 btnactive"
+              : "submit-btn1"
+          }
+          onClick={this.handleSubmit}
+          id="submit1"
+        >
+          Submit
+        </button>
+      </div>
+    );
+  }
 }
 export default Product;
