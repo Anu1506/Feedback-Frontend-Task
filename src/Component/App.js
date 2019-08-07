@@ -25,14 +25,16 @@ class App extends Component {
       like: 2,
       loading: false,
       selectedButton: "",
+      selecteBtndId: "",
       open: true,
-      comment_id: ""
+      order: 2
     };
   }
 
-  buttonClick = name => {
+  buttonClick = item => {
     this.setState({
-      selectedButton: name
+      selectedButton: item.name,
+      selecteBtndId: item.id
     });
   };
   toggleImage = () => {
@@ -51,16 +53,24 @@ class App extends Component {
 
   _handleOnClick = e => {
     const elementId = e.target.getAttribute("id");
+
     const _this = this;
     this.showLoader();
-    fetch(Project.apiBaseUrl + "order-comments-list/2")
+    if (elementId == "like") {
+      var comment_type = 1;
+      this.setState({ selecteBtndId: 0 });
+    } else {
+      var comment_type = 2;
+    }
+
+    fetch(Project.apiBaseUrl + "order-comments-list/" + comment_type)
       .then(res => res.json())
       .then(
         result => {
           this.setState(state => ({ open: !state.open }));
 
           toast.error("Error Notification !", {
-            position: toast.POSITION.TOP_LEFT
+            position: toast.POSITIONTOP_LEFT
           });
           console.log(JSON.stringify(result, "res"));
           console.log("like");
@@ -95,8 +105,12 @@ class App extends Component {
   }
 
   _handleSubmit = () => {
+    const { id } = this.props.match.params;
+    localStorage.setItem("order_id", id);
+    //  console.log(id);
     const _this = this;
     this.showLoader();
+
     if (this.state.activeButton == "0") {
       console.log(this.state.dislike);
     } else {
@@ -106,8 +120,8 @@ class App extends Component {
       method: "post",
       url: Project.apiBaseUrl + "save-order-feedback",
       data: {
-        order_id: "2",
-        comment_id: 1,
+        order_id: localStorage.getItem("order_id"),
+        comment_id: this.state.selecteBtndId,
         user_id: "0",
         feedback_by: "2",
         rating: "0",
@@ -197,7 +211,7 @@ class App extends Component {
                   className={
                     item.name === this.state.selectedButton ? "Btn1" : "Btn2"
                   }
-                  onClick={() => this.buttonClick(item.name)}
+                  onClick={() => this.buttonClick(item)}
                 >
                   {item.name}
                 </button>

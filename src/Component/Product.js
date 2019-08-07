@@ -27,7 +27,6 @@ class Product extends Component {
       isOpened: false,
       products: [],
       btns: [],
-      loading: false,
       dislike: 1,
       selectedButton: "",
       like: 2
@@ -38,22 +37,16 @@ class Product extends Component {
   tip = () => {
     this.setState({ toggle: !this.state.toggle });
   };
-  hideLoader = () => {
-    this.setState({ loading: false });
-  };
 
-  showLoader = () => {
-    this.setState({ loading: true });
-  };
   btnOnClick = e => {
     const elementId = e.target.getAttribute("id");
-    this.showLoader();
+
     fetch(Project.apiBaseUrl + "order-product-list/1376")
       .then(res => res.json())
       .then(
         result => {
           console.log(JSON.stringify(result, "res"));
-          this.hideLoader();
+
           this.setState({
             activeButton: elementId,
             backgroundColor: "green",
@@ -62,10 +55,9 @@ class Product extends Component {
             products: result.data
           });
         },
-
         error => {
           console.log("errr");
-          this.hideloader();
+
           this.setState({
             isLoaded: true,
             error
@@ -75,13 +67,11 @@ class Product extends Component {
   };
 
   toggleBox = () => {
-    this.showLoader();
     this.setState(oldState => ({ isOpened: !oldState.isOpened }));
     fetch(Project.apiBaseUrl + "product-comments-list/2")
       .then(res => res.json())
       .then(
         result => {
-          this.hideLoader();
           this.setState({
             isLoaded: true,
             btns: result.data
@@ -89,7 +79,6 @@ class Product extends Component {
         },
 
         error => {
-          this.hideLoader();
           this.setState({
             isLoaded: true,
             error
@@ -115,34 +104,39 @@ class Product extends Component {
     return this.state.activeButton === buttonId;
   }
   handleSubmit = () => {
-    this.showLoader();
+    if (this.state.activeButton == "0") {
+      console.log(this.state.dislike);
+    } else {
+      console.log(this.state.like);
+    }
+
     axios({
       method: "post",
       url: Project.apiBaseUrl + "save-order-product-feedback",
       data: {
-        order_id: "10",
+        order_id: localStorage.getItem("order_id"),
         product_id: "1",
-        comment_id: 1,
+        comment_id: this.state.selecteBtndId,
         user_id: "0",
         feedback_by: "2",
         rating: "0",
         feedback: "bla-bla-bla",
-        status: "2",
+        status: this.state.dislike,
         image_path: ""
       }
     })
       .then(response => {
         this.props.history.push("/Thankyou");
-        this.hideLoader();
       })
 
       .catch(error => {
         console.log(error);
-        this.hideLoader();
       });
   };
 
   render() {
+    const state = this.props.location.state;
+
     var optionButtonClasses = "circle first";
     console.log(this.props);
     const { isOpened } = this.state;
@@ -209,7 +203,7 @@ class Product extends Component {
         {this.isButtonActive("btn2")
           ? this.state.products.map(product => (
               <div className="giftwrapper">
-                <div className="giftbox">
+                <div className="giftbox" onClick={this.toggleBox}>
                   <img className="addproduct" src={product.image} />
                   <div>
                     <p className="textsize">{product.title}</p>
