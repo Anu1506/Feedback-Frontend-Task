@@ -25,14 +25,25 @@ class App extends Component {
       selectedButton: [],
       selectedBtndId: "",
       open: true,
-      order: 2
+      order: 2,
+      buttonState: "Btn2"
     };
   }
 
-  buttonClick = item => {
-    this.setState({
-      selectedButton: item.name,
-      selectedBtndId: item.id
+  buttonClick = (item, index) => {
+    console.log("item=====", item);
+    this.setState(prevState => {
+      return {
+        items: prevState.items.map(data => {
+          if (data.id === item.id) {
+            return { ...data, is_active: !item.is_active };
+          } else {
+            return data;
+          }
+        }),
+        selectedButton: item.name,
+        selectedBtndId: this.state.selectedBtndId + item.id + ","
+      };
     });
   };
   toggleImage = () => {
@@ -104,8 +115,6 @@ class App extends Component {
   _handleSubmit = () => {
     const { id } = this.props.match.params;
     localStorage.setItem("order_id", id);
-    //  console.log(id);
-
     this.showLoader();
 
     if (this.state.activeButton === "0") {
@@ -138,7 +147,7 @@ class App extends Component {
   render() {
     console.log(this.props.location.search);
     let optionButtonClasses = "circle first";
-    console.log(this.state.activeButton);
+    console.log(this.state.items);
 
     return (
       <div className="container">
@@ -204,9 +213,7 @@ class App extends Component {
               {this.state.items.map((item, index) => (
                 <button
                   key={index}
-                  className={
-                    item.name === this.state.selectedButton ? "Btn1" : "Btn2"
-                  }
+                  className={item.is_active ? "Btn1" : "Btn2"}
                   onClick={() => this.buttonClick(item)}
                 >
                   {item.name}
