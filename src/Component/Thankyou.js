@@ -11,7 +11,7 @@ class Thankyou extends Component {
         <Product />
         <div className="More-Feedback">
           <div className="rectangle">
-            <img className="path" src={path} />
+            <img className="path" src={path} alt="path" />
           </div>
 
           <h2 className="More-heading">Thank You</h2>

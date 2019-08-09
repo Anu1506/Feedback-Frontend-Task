@@ -19,9 +19,9 @@ class Feedback extends Component {
   Save = () => {
     axios({
       method: "post",
-      url: Project.apiBaseUrl + "save-order-feedback-comment",
+      url: Project.apiBaseUrl + "save-order-feedback-comment/",
       data: {
-        order_id: 2,
+        order_id: localStorage.getItem("order_id"),
         feedback: this.state.comments
       }
     })
@@ -40,6 +40,7 @@ class Feedback extends Component {
             className="cross"
             src={cross}
             onClick={() => this.setState({ toggle2: false })}
+            alt="cross"
           />
         </div>
         <h2 className="More-heading">More Comments</h2>

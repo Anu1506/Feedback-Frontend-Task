@@ -1,12 +1,10 @@
 import React, { Component } from "react";
 import "../asset/Style.css";
-import { createBrowserHistory } from "history";
 import logo from "../asset/img/logo.png";
 import bulb from "../asset/img/bulb.png";
 import backgrd from "../asset/img/backgrd.png";
 import thumb1 from "../asset/img/thumb1.png";
 import thumb2 from "../asset/img/thumb2.png";
-import Product from "../Component/Product";
 import Project from "../Configure/Project";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -24,8 +22,8 @@ class App extends Component {
       dislike: 1,
       like: 2,
       loading: false,
-      selectedButton: "",
-      selecteBtndId: "",
+      selectedButton: [],
+      selectedBtndId: "",
       open: true,
       order: 2
     };
@@ -34,7 +32,7 @@ class App extends Component {
   buttonClick = item => {
     this.setState({
       selectedButton: item.name,
-      selecteBtndId: item.id
+      selectedBtndId: item.id
     });
   };
   toggleImage = () => {
@@ -54,13 +52,12 @@ class App extends Component {
   _handleOnClick = e => {
     const elementId = e.target.getAttribute("id");
 
-    const _this = this;
     this.showLoader();
-    if (elementId == "like") {
+    if (elementId === "like") {
       var comment_type = 1;
       this.setState({ selecteBtndId: 0 });
     } else {
-      var comment_type = 2;
+      comment_type = 2;
     }
 
     fetch(Project.apiBaseUrl + "order-comments-list/" + comment_type)
@@ -108,10 +105,10 @@ class App extends Component {
     const { id } = this.props.match.params;
     localStorage.setItem("order_id", id);
     //  console.log(id);
-    const _this = this;
+
     this.showLoader();
 
-    if (this.state.activeButton == "0") {
+    if (this.state.activeButton === "0") {
       console.log(this.state.dislike);
     } else {
       console.log(this.state.like);
@@ -121,12 +118,11 @@ class App extends Component {
       url: Project.apiBaseUrl + "save-order-feedback",
       data: {
         order_id: localStorage.getItem("order_id"),
-        comment_id: this.state.selecteBtndId,
+        comment_id: this.state.selectedBtndId,
         user_id: "0",
         feedback_by: "2",
         rating: "0",
-        status: this.state.dislike,
-        feedback: ""
+        status: this.state.dislike
       }
     })
       .then(response => {
@@ -140,11 +136,10 @@ class App extends Component {
   };
 
   render() {
-    const imageName = this.getImageName();
     console.log(this.props.location.search);
-    var optionButtonClasses = "circle first";
+    let optionButtonClasses = "circle first";
     console.log(this.state.activeButton);
-    let animationClasses = this.state.animate ? " active" : "";
+
     return (
       <div className="container">
         <ToastContainer
@@ -169,7 +164,7 @@ class App extends Component {
           </p>
         </div>
 
-        <div class="progress-bar" />
+        <div className="progress-bar" />
         <div className="detail-box">
           <p className="font">
             Your feedback is important for us to serve you best and exciting
@@ -185,7 +180,7 @@ class App extends Component {
               onClick={this._handleOnClick}
               id="like"
             >
-              <img className="thumb" src={thumb1} id="like" />
+              <img className="thumb" src={thumb1} id="like" alt="thumb1" />
             </div>
             <div
               className="circle"
@@ -199,15 +194,16 @@ class App extends Component {
             >
               {this.state.loading ? <div className="loader" /> : null}
 
-              <img className="thumb" src={thumb2} id="dislike" />
+              <img className="thumb" src={thumb2} id="dislike" alt="thumb2" />
             </div>
           </div>
           {this._isButtonActive("dislike") ? (
             <div>
-              <div class="line" />
+              <div className="line" />
 
-              {this.state.items.map(item => (
+              {this.state.items.map((item, index) => (
                 <button
+                  key={index}
                   className={
                     item.name === this.state.selectedButton ? "Btn1" : "Btn2"
                   }
@@ -226,7 +222,7 @@ class App extends Component {
           />
         ) : null}
         {this.state.toggle ? (
-          <div class="description">
+          <div className="description">
             <p>
               Help others make purchase decision-
               <br />
@@ -248,7 +244,7 @@ class App extends Component {
           </div>
         ) : null}
 
-        <div class="progress-bar" />
+        <div className="progress-bar" />
 
         <button
           className={
