@@ -9,6 +9,8 @@ import backgrd from "../asset/img/backgrd.png";
 import forward from "../asset/img/forward.png";
 import Giftbutton from "../Component/Giftbutton";
 import Project from "../Configure/Project";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import Feedback from "../Component/Feedback";
 let dislikeImproveData = [];
@@ -35,6 +37,9 @@ class Product extends Component {
     this.toggleBox = this.toggleBox.bind(this);
   }
 
+  notifyB = () =>
+    toast("Success !", { containerId: "B", position: "Top", duration: "500" });
+
   tip = () => {
     this.setState({ toggle: !this.state.toggle });
   };
@@ -49,6 +54,7 @@ class Product extends Component {
       .then(res => res.json())
       .then(
         result => {
+          this.notifyB();
           this.setState({
             activeButton: elementId,
             backgroundColor: "green",
@@ -69,6 +75,7 @@ class Product extends Component {
   };
 
   toggleBox = (product_id, elem) => {
+    this.notifyB();
     this.setState(oldState => ({ selectedProductId: product_id }));
     let self = this;
     axios({
@@ -122,6 +129,7 @@ class Product extends Component {
     return this.state.activeButton === buttonId;
   }
   handleSubmit = () => {
+    this.notifyB();
     axios({
       method: "post",
       url: Project.apiBaseUrl + "save-order-product-feedback/",
@@ -143,6 +151,12 @@ class Product extends Component {
 
     return (
       <div className="container">
+        <ToastContainer
+          enableMultiContainer
+          containerId={"B"}
+          position={toast.POSITION.TOP}
+          duration={5000}
+        />
         <img className="Group-img" src={backgrd} alt="backgrd" />
         <div className="header">
           <img

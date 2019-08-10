@@ -30,6 +30,9 @@ class App extends Component {
     };
   }
 
+  notifyA = () =>
+    toast("Success !", { containerId: "A", position: "Top", duration: "500" });
+
   buttonClick = (item, index) => {
     console.log("item=====", item);
     this.setState(prevState => {
@@ -62,7 +65,6 @@ class App extends Component {
 
   _handleOnClick = e => {
     const elementId = e.target.getAttribute("id");
-
     this.showLoader();
     if (elementId === "like") {
       var comment_type = 1;
@@ -76,10 +78,7 @@ class App extends Component {
       .then(
         result => {
           this.setState(state => ({ open: !state.open }));
-
-          toast.error("Error Notification !", {
-            position: toast.POSITIONTOP_LEFT
-          });
+          this.notifyA();
           console.log(JSON.stringify(result, "res"));
           console.log("like");
           this.hideLoader();
@@ -116,6 +115,7 @@ class App extends Component {
     const { id } = this.props.match.params;
     localStorage.setItem("order_id", id);
     this.showLoader();
+    this.notifyA();
 
     if (this.state.activeButton === "0") {
       console.log(this.state.dislike);
@@ -154,7 +154,8 @@ class App extends Component {
         <ToastContainer
           enableMultiContainer
           containerId={"A"}
-          position={toast.POSITION.BOTTOM_LEFT}
+          position={toast.POSITION.TOP}
+          duration={5000}
         />
         <img className="Group-img" src={backgrd} alt="backgrd" />
         <div className="header">
