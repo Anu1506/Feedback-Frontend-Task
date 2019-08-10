@@ -28,7 +28,10 @@ class Product extends Component {
       products: [],
       prodPost: [],
       btns: [],
+      headingHide: true,
+      feedbackHide: false,
       dislike: 2,
+      progress: false,
       selectedButton: "",
       selectedBtnId: "",
       selectedProductId: "",
@@ -44,7 +47,22 @@ class Product extends Component {
     this.setState({ toggle: !this.state.toggle });
   };
 
+  heading = () => {
+    this.setState({ headingHide: !this.state.headingHide });
+  };
+
+  progressHide = () => {
+    this.setState({ progress: !this.state.progress });
+  };
+
+  feedbackDiv = () => {
+    this.setState({ feedbackHide: !this.state.feedbackHide });
+  };
+
   btnOnClick = (e, prod) => {
+    this.heading();
+    this.feedbackDiv();
+    this.progressHide();
     const elementId = e.target.getAttribute("id");
     fetch(
       Project.apiBaseUrl +
@@ -168,18 +186,23 @@ class Product extends Component {
           <img className="logo" src={logo} alt="logo" />
 
           <div className="tip-bar">
-            {" "}
             <img className="bulb" src={bulb} alt="bulb" onClick={this.tip} />
             <p>Tip</p>
           </div>
-
-          <p className="heading">
-            Hey,
-            <br />
-            <br />
-            How was the quality of gift you <br />
-            have receieved?
-          </p>
+        </div>
+        {this.state.headingHide ? (
+          <div>
+            <p className="heading">
+              Hey,
+              <br />
+              <br />
+              How was the quality of gift you <br />
+              have receieved?
+            </p>
+            <div className="progress-bar" />
+          </div>
+        ) : null}
+        <div className="detail-box">
           <p className="font">
             We will improve our product quality based <br />
             on your rating and feedback
@@ -213,7 +236,8 @@ class Product extends Component {
             </div>
           </div>
         </div>
-        <div className="progress-bar" />
+        {this.state.progress ? <div className="progress-bar" /> : null}
+
         {this.isButtonActive("btn2")
           ? this.state.products.map(prod => (
               <div
@@ -229,6 +253,7 @@ class Product extends Component {
                     <p className="delivered">Delivered on:01 july 2019</p>
                   </div>
                 </div>
+
                 <img
                   className="add"
                   src={forward}
@@ -256,13 +281,14 @@ class Product extends Component {
               </div>
             ))
           : null}
-
-        <div className="feedback">
-          <a href="!#" className="link-col" onClick={this.feedback}>
-            Leave more feedback
-          </a>
-        </div>
-        <div className="progress-bar1" />
+        {this.state.feedbackHide ? (
+          <div className="feedback">
+            <a href="!#" className="link-col" onClick={this.feedback}>
+              Leave more feedback
+            </a>
+          </div>
+        ) : null}
+        <div className="progress-bar" />
         {this.state.toggle ? (
           <div
             className="overlay-box"

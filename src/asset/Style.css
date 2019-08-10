@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
 body{
   margin: 0;
   padding: 0;
@@ -34,11 +33,11 @@ body{
 
 .font
 {
-  margin-top: 40px;
-  padding-left:5px ;
+margin-top: 40px;
+padding-left:5px ;
 opacity: 0.7;
 font-family: Lato;
-font-size: 16px;
+font-size: 17px;
 font-weight: normal;
 font-style: normal;
 font-stretch: normal;
@@ -117,7 +116,7 @@ color:gray;
     width: 100%;
     height: 15px;
     background-color: #edf1f7;
-    margin-top: 85px;
+    margin-top: 30px;
 
 
 }
@@ -126,7 +125,7 @@ color:gray;
     width: 100%;
     height: 15px;
     background-color: #edf1f7;
-    margin-top: 0px;
+    margin-top: 80px;
 
 }
 
@@ -136,7 +135,7 @@ color:gray;
     height: 2px;
     background-color: #edf1f7;
     margin: 0 auto;
-    margin-bottom: 20px;
+    margin-top: 30px;
 }
 
 .hrline1
@@ -196,9 +195,8 @@ color:gray;
  color:green;
  border-color: green;
  margin-left: 10px;
-
-
-
+ margin-top: 20px;
+ padding-right: 5px;
 }
 
 .Btn2
@@ -210,7 +208,8 @@ color:gray;
  color:gray;
  float: left;
  margin-left: 10px;
-
+ margin-top: 20px;
+ padding-right: 5px;
 
 
 }
@@ -628,7 +627,7 @@ float: left;
   border-top: 16px solid #3498db;
   width: 10px;
   height: 10px;
-  -webkit-animation: spin 2s linear infinite; /* Safari 
+  -webkit-animation: spin 2s linear infinite; /* Safari
   animation: spin 2s linear infinite;
 }
 

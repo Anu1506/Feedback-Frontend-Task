@@ -174,6 +174,7 @@ class App extends Component {
           </p>
         </div>
 
+        {this.state.loading ? <div className="loader" /> : null}
         <div className="progress-bar" />
         <div className="detail-box">
           <p className="font">
@@ -202,8 +203,6 @@ class App extends Component {
                   : optionButtonClasses
               }
             >
-              {this.state.loading ? <div className="loader" /> : null}
-
               <img className="thumb" src={thumb2} id="dislike" alt="thumb2" />
             </div>
           </div>
@@ -252,7 +251,7 @@ class App extends Component {
           </div>
         ) : null}
 
-        <div className="progress-bar" />
+        <div className="progress-bar1" />
 
         <button
           className={
