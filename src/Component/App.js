@@ -23,18 +23,17 @@ class App extends Component {
       like: 2,
       loading: false,
       selectedButton: [],
-      selectedBtndId: "",
+      selectedBtndId: false,
       open: true,
       order: 2,
       buttonState: "Btn2"
     };
   }
 
-  notifyA = () =>
-    toast("Success !", { containerId: "A", position: "Top", duration: "500" });
+  notifyA = msg =>
+    toast(msg, { containerId: "A", position: "Top", duration: "500" });
 
   buttonClick = (item, index) => {
-    console.log("item=====", item);
     this.setState(prevState => {
       return {
         items: prevState.items.map(data => {
@@ -75,12 +74,9 @@ class App extends Component {
 
     fetch(Project.apiBaseUrl + "order-comments-list/" + comment_type)
       .then(res => res.json())
-      .then(
-        result => {
+      .then(result => {
+        if (result.status === 200 && result.data.length > 0) {
           this.setState(state => ({ open: !state.open }));
-          this.notifyA();
-          console.log(JSON.stringify(result, "res"));
-          console.log("like");
           this.hideLoader();
           this.toggleImage();
           this.setState({
@@ -90,17 +86,20 @@ class App extends Component {
             isLoaded: true,
             items: result.data
           });
-        },
-
-        error => {
-          console.log("errr");
-          this.hideLoader();
-          this.setState({
-            isLoaded: true,
-            error
-          });
+        } else {
+          this.notifyA("Data not found !");
         }
-      );
+      })
+
+      .catch(error => {
+        console.log("errr");
+        this.notifyA("Data not found !");
+        this.hideLoader();
+        this.setState({
+          isLoaded: true,
+          error
+        });
+      });
   };
 
   tip = () => {
@@ -115,7 +114,6 @@ class App extends Component {
     const { id } = this.props.match.params;
     localStorage.setItem("order_id", id);
     this.showLoader();
-    this.notifyA();
 
     if (this.state.activeButton === "0") {
       console.log(this.state.dislike);
@@ -127,7 +125,8 @@ class App extends Component {
       url: Project.apiBaseUrl + "save-order-feedback",
       data: {
         order_id: localStorage.getItem("order_id"),
-        comment_id: this.state.selectedBtndId,
+        comment_id:
+          this.state.selectedBtndId === false ? "0" : this.state.selectedBtndId,
         user_id: "0",
         feedback_by: "2",
         rating: "0",
@@ -141,13 +140,12 @@ class App extends Component {
       .catch(error => {
         console.log(error);
         this.hideLoader();
+        this.notifyA(error);
       });
   };
 
   render() {
-    console.log(this.props.location.search);
     let optionButtonClasses = "circle first";
-    console.log(this.state.items);
 
     return (
       <div className="container">
@@ -210,15 +208,16 @@ class App extends Component {
             <div>
               <div className="line" />
 
-              {this.state.items.map((item, index) => (
-                <button
-                  key={index}
-                  className={item.is_active ? "Btn1" : "Btn2"}
-                  onClick={() => this.buttonClick(item)}
-                >
-                  {item.name}
-                </button>
-              ))}
+              {this.state.items &&
+                this.state.items.map((item, index) => (
+                  <button
+                    key={index}
+                    className={item.is_active ? "Btn1" : "Btn2"}
+                    onClick={() => this.buttonClick(item)}
+                  >
+                    {item.name}
+                  </button>
+                ))}
             </div>
           ) : null}
         </div>

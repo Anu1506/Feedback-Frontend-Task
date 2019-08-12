@@ -33,15 +33,14 @@ class Product extends Component {
       dislike: 2,
       progress: false,
       selectedButton: "",
-      selectedBtnId: "",
+      selectedBtnId: false,
       selectedProductId: "",
       like: 1
     };
-    this.toggleBox = this.toggleBox.bind(this);
   }
 
-  notifyB = () =>
-    toast("Success !", { containerId: "B", position: "Top", duration: "500" });
+  notifyB = msg =>
+    toast(msg, { containerId: "B", position: "Top", duration: "500" });
 
   tip = () => {
     this.setState({ toggle: !this.state.toggle });
@@ -70,9 +69,8 @@ class Product extends Component {
         localStorage.getItem("order_id")
     )
       .then(res => res.json())
-      .then(
-        result => {
-          this.notifyB();
+      .then(result => {
+        if (result.status === 200 && result.data.length > 0) {
           this.setState({
             activeButton: elementId,
             backgroundColor: "green",
@@ -80,22 +78,22 @@ class Product extends Component {
             isLoaded: true,
             products: result.data
           });
-        },
-        error => {
-          console.log("errr");
-
-          this.setState({
-            isLoaded: true,
-            error
-          });
+        } else {
+          this.notifyB("Data not found !");
         }
-      );
+      })
+      .catch(error => {
+        console.log("errr");
+
+        this.setState({
+          isLoaded: true,
+          error
+        });
+      });
   };
 
   toggleBox = (product_id, elem) => {
-    this.notifyB();
     this.setState(oldState => ({ selectedProductId: product_id }));
-    let self = this;
     axios({
       method: "post",
       url: Project.apiBaseUrl + "product-comments-list/",
@@ -105,9 +103,9 @@ class Product extends Component {
         status: this.state.dislike
       }
     })
-      .then(function(response) {
+      .then(response => {
         if (response.data) {
-          self.setState({ isLoaded: true, btns: response.data.data });
+          this.setState({ isLoaded: true, btns: response.data.data });
         }
       })
       .catch(error => {
@@ -115,6 +113,7 @@ class Product extends Component {
           isLoaded: true,
           error
         });
+        this.notifyB("Data not found!");
       });
   };
 
@@ -127,14 +126,25 @@ class Product extends Component {
   }
 
   buttonClick = btn => {
-    this.setState({
-      selectedButton: btn.name,
-      selectedBtnId: btn.id
+    this.setState(prevState => {
+      return {
+        btns: prevState.btns.map(data => {
+          if (data.id === btn.id) {
+            return { ...data, is_active: !data.is_active };
+          } else {
+            return data;
+          }
+        }),
+        selectedButton: btn.name,
+        selectedBtndId: this.state.selectedBtndId + btn.id + ","
+      };
     });
+
     let data = {
       order_id: localStorage.getItem("order_id"),
       product_id: this.state.selectedProductId,
-      comment_id: this.state.selectedBtnId,
+      comment_id:
+        this.state.selectedBtnId === false ? "0" : this.state.selectedBtnId,
       user_id: "0",
       feedback_by: "2",
       rating: "0",
@@ -147,12 +157,26 @@ class Product extends Component {
     return this.state.activeButton === buttonId;
   }
   handleSubmit = () => {
-    this.notifyB();
+    let WithSelectdata = [
+      {
+        order_id: localStorage.getItem("order_id"),
+        product_id: this.state.selectedProductId,
+        comment_id: "0",
+        user_id: "0",
+        feedback_by: "2",
+        rating: "0",
+        status: this.state.dislike
+      }
+    ];
+    let finalData =
+      dislikeImproveData.length == 0
+        ? alert("Please select comment")
+        : dislikeImproveData;
     axios({
       method: "post",
       url: Project.apiBaseUrl + "save-order-product-feedback/",
       data: {
-        prodPost: dislikeImproveData
+        prodPost: finalData
       }
     })
       .then(response => {
@@ -161,12 +185,12 @@ class Product extends Component {
 
       .catch(error => {
         console.log(error);
+        this.notifyB("Data not found  Thankyou!");
       });
   };
 
   render() {
     var optionButtonClasses = "circle first";
-
     return (
       <div className="container">
         <ToastContainer
@@ -239,7 +263,8 @@ class Product extends Component {
         {this.state.progress ? <div className="progress-bar" /> : null}
 
         {this.isButtonActive("btn2")
-          ? this.state.products.map(prod => (
+          ? this.state.products &&
+            this.state.products.map(prod => (
               <div
                 className="giftwrapper"
                 key={prod.product_id}
@@ -258,7 +283,7 @@ class Product extends Component {
                   className="add"
                   src={forward}
                   alt="forward"
-                  onClick={this.toggleBox}
+                  onClick={() => this.toggleBox()}
                 />
 
                 {this.state.selectedProductId === prod.product_id ? (
@@ -270,7 +295,8 @@ class Product extends Component {
                       <Giftbutton
                         key={index}
                         name={btn.name}
-                        btnselected={btn.selectedBtnId}
+                        btnselected={btn.id}
+                        className={btn.is_active ? "Btn1" : "Btn2"}
                         a={() => this.buttonClick(btn)}
                       />
                     ))}
@@ -283,9 +309,9 @@ class Product extends Component {
           : null}
         {this.state.feedbackHide ? (
           <div className="feedback">
-            <a href="!#" className="link-col" onClick={this.feedback}>
-              Leave more feedback
-            </a>
+            <div className="link-col" onClick={this.feedback}>
+              <u> Leave more feedback</u>
+            </div>
           </div>
         ) : null}
         <div className="progress-bar" />
@@ -332,7 +358,7 @@ class Product extends Component {
               ? "submit-btn1 btnactive"
               : "submit-btn1"
           }
-          onClick={this.handleSubmit}
+          onClick={() => this.handleSubmit()}
           id="submit1"
         >
           Submit
