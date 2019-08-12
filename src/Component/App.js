@@ -5,6 +5,8 @@ import bulb from "../asset/img/bulb.png";
 import backgrd from "../asset/img/backgrd.png";
 import thumb1 from "../asset/img/thumb1.png";
 import thumb2 from "../asset/img/thumb2.png";
+import dislike from "../asset/img/dislike.png";
+import like from "../asset/img/like.png";
 import Project from "../Configure/Project";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -26,9 +28,18 @@ class App extends Component {
       selectedBtndId: false,
       open: true,
       order: 2,
-      buttonState: "Btn2"
+      buttonState: "Btn2",
+      thumbshow: "true",
+      thumbhide: "true"
     };
   }
+
+  DislikeImg = () => {
+    this.setState({ thumbshow: !this.state.thumbshow });
+  };
+  likeImg = () => {
+    this.setState({ thumbhide: !this.state.thumbhide });
+  };
 
   notifyA = msg =>
     toast(msg, { containerId: "A", position: "Top", duration: "500" });
@@ -64,7 +75,9 @@ class App extends Component {
 
   _handleOnClick = e => {
     const elementId = e.target.getAttribute("id");
-    this.showLoader();
+    this.DislikeImg();
+    this.likeImg();
+
     if (elementId === "like") {
       var comment_type = 1;
       this.setState({ selecteBtndId: 0 });
@@ -189,7 +202,12 @@ class App extends Component {
               onClick={this._handleOnClick}
               id="like"
             >
-              <img className="thumb" src={thumb1} id="like" alt="thumb1" />
+              <img
+                className="thumb"
+                src={this.state.thumbhide ? thumb1 : like}
+                id="like"
+                alt="thumb1"
+              />
             </div>
             <div
               className="circle"
@@ -201,7 +219,12 @@ class App extends Component {
                   : optionButtonClasses
               }
             >
-              <img className="thumb" src={thumb2} id="dislike" alt="thumb2" />
+              <img
+                className="thumb"
+                src={this.state.thumbshow ? thumb2 : dislike}
+                id="dislike"
+                alt="thumb2"
+              />
             </div>
           </div>
           {this._isButtonActive("dislike") ? (

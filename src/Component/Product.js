@@ -8,6 +8,7 @@ import arrow from "../asset/img/arrow.png";
 import backgrd from "../asset/img/backgrd.png";
 import forward from "../asset/img/forward.png";
 import Giftbutton from "../Component/Giftbutton";
+import dislike from "../asset/img/dislike.png";
 import Project from "../Configure/Project";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -32,9 +33,12 @@ class Product extends Component {
       feedbackHide: false,
       dislike: 2,
       progress: false,
-      selectedButton: "",
+      selectedButton: null,
       selectedBtnId: false,
-      selectedProductId: "",
+      selectedProductId: null,
+      product_type: null,
+      thumbshow: "true",
+      product_category: null,
       like: 1
     };
   }
@@ -45,7 +49,9 @@ class Product extends Component {
   tip = () => {
     this.setState({ toggle: !this.state.toggle });
   };
-
+  DislikeImg = () => {
+    this.setState({ thumbshow: !this.state.thumbshow });
+  };
   heading = () => {
     this.setState({ headingHide: !this.state.headingHide });
   };
@@ -60,6 +66,7 @@ class Product extends Component {
 
   btnOnClick = (e, prod) => {
     this.heading();
+    this.DislikeImg();
     this.feedbackDiv();
     this.progressHide();
     const elementId = e.target.getAttribute("id");
@@ -71,6 +78,7 @@ class Product extends Component {
       .then(res => res.json())
       .then(result => {
         if (result.status === 200 && result.data.length > 0) {
+          console.log("msg", result.data);
           this.setState({
             activeButton: elementId,
             backgroundColor: "green",
@@ -92,14 +100,14 @@ class Product extends Component {
       });
   };
 
-  toggleBox = (product_id, elem) => {
+  toggleBox = (product_id, type, category, elem) => {
     this.setState(oldState => ({ selectedProductId: product_id }));
     axios({
       method: "post",
       url: Project.apiBaseUrl + "product-comments-list/",
       data: {
-        product_type: 1,
-        product_category: 1,
+        product_type: type,
+        product_category: category,
         status: this.state.dislike
       }
     })
@@ -256,7 +264,12 @@ class Product extends Component {
                   : optionButtonClasses
               }
             >
-              <img className="thumb" src={thumb2} id="btn2" alt="thumb2" />
+              <img
+                className="thumb"
+                src={this.state.thumbshow ? thumb2 : dislike}
+                id="btn2"
+                alt="thumb2"
+              />
             </div>
           </div>
         </div>
@@ -268,7 +281,9 @@ class Product extends Component {
               <div
                 className="giftwrapper"
                 key={prod.product_id}
-                onClick={() => this.toggleBox(prod.product_id)}
+                onClick={() =>
+                  this.toggleBox(prod.product_id, prod.type, prod.co)
+                }
               >
                 <div className="giftbox">
                   <img className="addproduct" src={prod.image} alt="product" />
