@@ -8,6 +8,7 @@ import arrow from "../asset/img/arrow.png";
 import backgrd from "../asset/img/backgrd.png";
 import forward from "../asset/img/forward.png";
 import Giftbutton from "../Component/Giftbutton";
+import Help from "../Component/Help";
 import dislike from "../asset/img/dislike.png";
 import Project from "../Configure/Project";
 import { ToastContainer, toast } from "react-toastify";
@@ -15,6 +16,7 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import Feedback from "../Component/Feedback";
 let dislikeImproveData = [];
+let activeId = [];
 class Product extends Component {
   constructor(props) {
     super(props);
@@ -78,7 +80,6 @@ class Product extends Component {
       .then(res => res.json())
       .then(result => {
         if (result.status === 200 && result.data.length > 0) {
-          console.log("msg", result.data);
           this.setState({
             activeButton: elementId,
             backgroundColor: "green",
@@ -101,28 +102,30 @@ class Product extends Component {
   };
 
   toggleBox = (product_id, type, category, elem) => {
-    this.setState(oldState => ({ selectedProductId: product_id }));
-    axios({
-      method: "post",
-      url: Project.apiBaseUrl + "product-comments-list/",
-      data: {
-        product_type: type,
-        product_category: category,
-        status: this.state.dislike
-      }
-    })
-      .then(response => {
-        if (response.data) {
-          this.setState({ isLoaded: true, btns: response.data.data });
+    if (this.state.selectedProductId !== product_id) {
+      this.setState(oldState => ({ selectedProductId: product_id }));
+      axios({
+        method: "post",
+        url: Project.apiBaseUrl + "product-comments-list/",
+        data: {
+          product_type: type,
+          product_category: category,
+          status: this.state.dislike
         }
       })
-      .catch(error => {
-        this.setState({
-          isLoaded: true,
-          error
+        .then(response => {
+          if (response.data) {
+            this.setState({ isLoaded: true, btns: response.data.data });
+          }
+        })
+        .catch(error => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
+          this.notifyB("Data not found!");
         });
-        this.notifyB("Data not found!");
-      });
+    }
   };
 
   feedback = () => {
@@ -134,6 +137,8 @@ class Product extends Component {
   }
 
   buttonClick = btn => {
+    activeId.push(btn.id);
+
     this.setState(prevState => {
       return {
         btns: prevState.btns.map(data => {
@@ -300,25 +305,23 @@ class Product extends Component {
                   alt="forward"
                   onClick={() => this.toggleBox()}
                 />
-
+                <div className="hrline2" />
                 {this.state.selectedProductId === prod.product_id ? (
                   <div className="gift-view">
-                    <div className="hrline2" />
                     <p className="font-btn">Where we can improve?</p>
 
                     {this.state.btns.map((btn, index) => (
-                      <Giftbutton
+                      <button
                         key={index}
-                        name={btn.name}
-                        btnselected={btn.id}
-                        className={btn.is_active ? "Btn1" : "Btn2"}
-                        a={() => this.buttonClick(btn)}
-                      />
+                        className={btn.is_active ? "giftbtngreen" : "giftbtn"}
+                        onClick={() => this.buttonClick(btn)}
+                      >
+                        {btn.name}
+                      </button>
                     ))}
+                    <div className="hrline1" />
                   </div>
                 ) : null}
-
-                <div className="hrline1" />
               </div>
             ))
           : null}
@@ -336,36 +339,10 @@ class Product extends Component {
             onClick={() => this.setState({ toggle: false })}
           />
         ) : null}
-        {this.state.toggle ? (
-          <div className="description">
-            <p>
-              Help others make purchase decision-
-              <br />
-              <br />
-              Write about your Service Experience:
-              <br />
-              Explain what you liked or disliked about the
-              <br />
-              services,did it meet your excpetence,was the <br />
-              customer care helpful enough..
-              <br />
-              <br />
-              Write about your Product Experience
-              <br />
-              How good was the product,was therecipient
-              <br />
-              happy with the quality?
-            </p>
-          </div>
-        ) : null}
+        {this.state.toggle ? <Help /> : null}
 
-        {this.state.toggle2 ? (
-          <div
-            className="overlay-box"
-            onClick={() => this.setState({ toggle2: false })}
-          />
-        ) : null}
-        {this.state.toggle2 ? <Feedback /> : null}
+        {this.state.toggle2 ? <div className="overlay-box" /> : null}
+        {this.state.toggle2 ? <Feedback click={() => this.feedback()} /> : null}
 
         <button
           className={

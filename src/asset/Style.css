@@ -213,6 +213,34 @@ color:gray;
 
 
 }
+.giftbtngreen
+{
+ background:  white;
+ border-radius: 5px;
+ padding:10px;
+ text-align: center;
+ float:left;
+ color:green;
+ border-color: green;
+ margin-left: 10px;
+ padding-right: 5px;
+ width:25%
+}
+
+.giftbtn
+{
+ background:  white;
+ border-radius: 5px;
+ padding: 10px;
+ text-align: center;
+ color:gray;
+ float: left;
+ margin-left: 10px;
+ padding-right: 5px;
+ width:25%
+
+
+}
 
 
 .submit-btn1

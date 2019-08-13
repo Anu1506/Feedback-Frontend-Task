@@ -7,7 +7,6 @@ class Feedback extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      toggle2: false,
       comments: ""
     };
     this.handleChange = this.handleChange.bind(this);
@@ -39,7 +38,7 @@ class Feedback extends Component {
           <img
             className="cross"
             src={cross}
-            onClick={() => this.setState({ toggle2: false })}
+            onClick={() => this.props.click()}
             alt="cross"
           />
         </div>

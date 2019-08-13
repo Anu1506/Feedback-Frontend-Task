@@ -6,7 +6,7 @@ import backgrd from "../asset/img/backgrd.png";
 import thumb1 from "../asset/img/thumb1.png";
 import thumb2 from "../asset/img/thumb2.png";
 import dislike from "../asset/img/dislike.png";
-import like from "../asset/img/like.png";
+import Help from "../Component/Help";
 import Project from "../Configure/Project";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -29,16 +29,12 @@ class App extends Component {
       open: true,
       order: 2,
       buttonState: "Btn2",
-      thumbshow: "true",
-      thumbhide: "true"
+      thumbshow: "true"
     };
   }
 
   DislikeImg = () => {
     this.setState({ thumbshow: !this.state.thumbshow });
-  };
-  likeImg = () => {
-    this.setState({ thumbhide: !this.state.thumbhide });
   };
 
   notifyA = msg =>
@@ -76,7 +72,6 @@ class App extends Component {
   _handleOnClick = e => {
     const elementId = e.target.getAttribute("id");
     this.DislikeImg();
-    this.likeImg();
 
     if (elementId === "like") {
       var comment_type = 1;
@@ -173,7 +168,6 @@ class App extends Component {
           <img className="logo" src={logo} alt="logo" />
 
           <div className="tip-bar">
-            {" "}
             <img className="bulb" src={bulb} alt="bulb" onClick={this.tip} />
             <p>Tip</p>
           </div>
@@ -202,12 +196,7 @@ class App extends Component {
               onClick={this._handleOnClick}
               id="like"
             >
-              <img
-                className="thumb"
-                src={this.state.thumbhide ? thumb1 : like}
-                id="like"
-                alt="thumb1"
-              />
+              <img className="thumb" src={thumb1} id="like" alt="thumb1" />
             </div>
             <div
               className="circle"
@@ -250,28 +239,7 @@ class App extends Component {
             onClick={() => this.setState({ toggle: false })}
           />
         ) : null}
-        {this.state.toggle ? (
-          <div className="description">
-            <p>
-              Help others make purchase decision-
-              <br />
-              <br />
-              Write about your Service Experience:
-              <br />
-              Explain what you liked or disliked about the
-              <br />
-              services,did it meet your excpetence,was the <br />
-              customer care helpful enough..
-              <br />
-              <br />
-              Write about your Product Experience
-              <br />
-              How good was the product,was therecipient
-              <br />
-              happy with the quality?
-            </p>
-          </div>
-        ) : null}
+        {this.state.toggle ? <Help /> : null}
 
         <div className="progress-bar1" />
 
