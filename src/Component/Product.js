@@ -7,7 +7,6 @@ import thumb2 from "../asset/img/thumb2.png";
 import arrow from "../asset/img/arrow.png";
 import backgrd from "../asset/img/backgrd.png";
 import forward from "../asset/img/forward.png";
-import Giftbutton from "../Component/Giftbutton";
 import Help from "../Component/Help";
 import dislike from "../asset/img/dislike.png";
 import Project from "../Configure/Project";
@@ -45,7 +44,7 @@ class Product extends Component {
     };
   }
 
-  notifyB = msg =>
+  toaster = msg =>
     toast(msg, { containerId: "B", position: "Top", duration: "500" });
 
   tip = () => {
@@ -88,12 +87,12 @@ class Product extends Component {
             products: result.data
           });
         } else {
-          this.notifyB("Data not found !");
+          this.toaster("Data not found !");
         }
       })
       .catch(error => {
         console.log("errr");
-
+        this.toaster("Data not found !");
         this.setState({
           isLoaded: true,
           error
@@ -123,7 +122,7 @@ class Product extends Component {
             isLoaded: true,
             error
           });
-          this.notifyB("Data not found!");
+          this.toaster("Data not found!");
         });
     }
   };
@@ -170,19 +169,8 @@ class Product extends Component {
     return this.state.activeButton === buttonId;
   }
   handleSubmit = () => {
-    let WithSelectdata = [
-      {
-        order_id: localStorage.getItem("order_id"),
-        product_id: this.state.selectedProductId,
-        comment_id: "0",
-        user_id: "0",
-        feedback_by: "2",
-        rating: "0",
-        status: this.state.dislike
-      }
-    ];
     let finalData =
-      dislikeImproveData.length == 0
+      dislikeImproveData.length === 0
         ? alert("Please select comment")
         : dislikeImproveData;
     axios({
@@ -198,7 +186,7 @@ class Product extends Component {
 
       .catch(error => {
         console.log(error);
-        this.notifyB("Data not found  Thankyou!");
+        this.toaster("Data not found  Thankyou!");
       });
   };
 
@@ -239,6 +227,7 @@ class Product extends Component {
             <div className="progress-bar" />
           </div>
         ) : null}
+
         <div className="detail-box">
           <p className="font">
             We will improve our product quality based <br />
@@ -255,7 +244,6 @@ class Product extends Component {
               onClick={this.btnOnClick}
               id="btn1"
             >
-              {this.state.loading ? <div className="loader" /> : null}
               <img className="thumb" src={thumb1} id="btn1" alt="thumb1" />
             </div>
 
@@ -279,7 +267,6 @@ class Product extends Component {
           </div>
         </div>
         {this.state.progress ? <div className="progress-bar" /> : null}
-
         {this.isButtonActive("btn2")
           ? this.state.products &&
             this.state.products.map(prod => (
@@ -340,10 +327,8 @@ class Product extends Component {
           />
         ) : null}
         {this.state.toggle ? <Help /> : null}
-
         {this.state.toggle2 ? <div className="overlay-box" /> : null}
         {this.state.toggle2 ? <Feedback click={() => this.feedback()} /> : null}
-
         <button
           className={
             this.state.selectedOption.length > 0

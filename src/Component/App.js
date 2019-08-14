@@ -7,6 +7,7 @@ import thumb1 from "../asset/img/thumb1.png";
 import thumb2 from "../asset/img/thumb2.png";
 import dislike from "../asset/img/dislike.png";
 import Help from "../Component/Help";
+// import loader from "../asset/img/loader.gif";
 import Project from "../Configure/Project";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -19,11 +20,9 @@ class App extends Component {
       toggle1: false,
       selectedOption: "",
       error: null,
-      isLoaded: false,
       items: [],
       dislike: 1,
       like: 2,
-      loading: false,
       selectedButton: [],
       selectedBtndId: false,
       open: true,
@@ -37,7 +36,7 @@ class App extends Component {
     this.setState({ thumbshow: !this.state.thumbshow });
   };
 
-  notifyA = msg =>
+  toaster = msg =>
     toast(msg, { containerId: "A", position: "Top", duration: "500" });
 
   buttonClick = (item, index) => {
@@ -60,15 +59,6 @@ class App extends Component {
   };
 
   getImageName = () => (this.state.open ? "thumb2" : "dislike");
-
-  hideLoader = () => {
-    this.setState({ loading: false });
-  };
-
-  showLoader = () => {
-    this.setState({ loading: true });
-  };
-
   _handleOnClick = e => {
     const elementId = e.target.getAttribute("id");
     this.DislikeImg();
@@ -85,7 +75,6 @@ class App extends Component {
       .then(result => {
         if (result.status === 200 && result.data.length > 0) {
           this.setState(state => ({ open: !state.open }));
-          this.hideLoader();
           this.toggleImage();
           this.setState({
             activeButton: elementId,
@@ -101,8 +90,7 @@ class App extends Component {
 
       .catch(error => {
         console.log("errr");
-        this.notifyA("Data not found !");
-        this.hideLoader();
+        this.toaster("Data not found !");
         this.setState({
           isLoaded: true,
           error
@@ -121,7 +109,6 @@ class App extends Component {
   _handleSubmit = () => {
     const { id } = this.props.match.params;
     localStorage.setItem("order_id", id);
-    this.showLoader();
 
     if (this.state.activeButton === "0") {
       console.log(this.state.dislike);
@@ -143,12 +130,10 @@ class App extends Component {
     })
       .then(response => {
         this.props.history.push("/Product");
-        this.hideLoader();
       })
       .catch(error => {
         console.log(error);
-        this.hideLoader();
-        this.notifyA(error);
+        this.toaster(error);
       });
   };
 
